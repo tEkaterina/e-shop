@@ -28,9 +28,7 @@ namespace CartService.DataAccess.Repository
             return _db.RunOnCarts((carts) =>
             {
                 return carts.Delete(id);
-            }
-            )
-                ;
+            });
         }
 
         public bool Exists(string id)
