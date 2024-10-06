@@ -9,14 +9,14 @@ namespace CartService.DataAccess.LiteDb
     {
         private readonly string _databasePath;
 
-        public DbContext(IOptions<LiteDbOptions> options)
+        public DbContext(string? connectionString)
         {
-            if (string.IsNullOrEmpty(options.Value.ConnectionString))
+            if (string.IsNullOrEmpty(connectionString))
             {
                 throw new DbConfigurationException();
             }
 
-            _databasePath = options.Value.ConnectionString;
+            _databasePath = connectionString;
         }
 
         public ILiteDatabase Get()

@@ -64,6 +64,7 @@ namespace CartService.Services.Cart
             else
             {
                 ProductDto product = await _productService.GetProductAsync(productId) ?? throw new ProductNotFoundException(productId);
+                product.Count = count;
                 cart.ProductItems.Add(_mapper.ToProductItem(product));
             }
 

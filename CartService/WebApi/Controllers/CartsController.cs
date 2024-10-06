@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CartService.WebApi.Controllers;
 
 public record ModifyProductCountRequest(int ProductId, int Count = 1);
+public record CreateCartRequest(string Id);
 
 [Route("api/[controller]")]
 [ApiController]
@@ -21,16 +22,16 @@ public class CartsController(ICartService cartService) : ControllerBase
         CartDto? cart = await _cartService.GetAsync(id);
         if (cart == null)
         {
-            return NotFound();
+            return NotFound(id);
         }
 
         return Ok(cart);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post([FromBody] string cartId)
+    public async Task<IActionResult> Post([FromBody] CreateCartRequest request)
     {
-        CartDto cart = await _cartService.GetOrCreateAsync(cartId);
+        CartDto cart = await _cartService.GetOrCreateAsync(request.Id);
 
         return Ok(cart);
     }
@@ -40,7 +41,7 @@ public class CartsController(ICartService cartService) : ControllerBase
     {
         if (!_cartService.Delete(id))
         {
-            return NotFound();
+            return NotFound(id);
         }
 
         return NoContent();
@@ -65,7 +66,7 @@ public class CartsController(ICartService cartService) : ControllerBase
         try
         {
             CartDto cart = await _cartService.AddProductAsync(cartId, request.ProductId, request.Count);
-            return Ok(cart);
+            return Ok(cart.Products);
         }
         catch (ProductNotFoundException)
         {
@@ -83,11 +84,11 @@ public class CartsController(ICartService cartService) : ControllerBase
         }
         catch (ProductNotFoundException)
         {
-            return BadRequest();
+            return BadRequest($"Unable to find {productId}.");
         }
         catch (CartNotFoundException)
         {
-            return NotFound();
+            return NotFound(cartId);
         }
     }
 }

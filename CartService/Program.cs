@@ -1,4 +1,5 @@
 using CartService.DataAccess.Extentions;
+using CartService.Services.Extentions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddDataAccessServices(builder.Configuration);
+builder.Services.AddApplicationServices();
 
 var app = builder.Build();
 

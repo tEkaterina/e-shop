@@ -1,6 +1,35 @@
 @CartService_HostAddress = http://localhost:5136
 
-GET {{CartService_HostAddress}}/weatherforecast/
+POST {{CartService_HostAddress}}/api/carts
 Accept: application/json
+Content-Type: application/json
+
+{
+  "Id": "9876abcd-4321-efab-cdef-1234567890ab"
+}
 
 ###
+
+GET {{CartService_HostAddress}}/api/carts/9876abcd-4321-efab-cdef-1234567890ab/products
+
+###
+
+POST {{CartService_HostAddress}}/api/carts/9876abcd-4321-efab-cdef-1234567890ab/products
+Accept: application/json
+Content-Type: application/json
+
+{
+  "ProductId": 100,
+  "Count": 4
+}
+
+###
+
+DELETE {{CartService_HostAddress}}/api/carts/9876abcd-4321-efab-cdef-1234567890ab/products/100?count=2
+
+###
+
+DELETE {{CartService_HostAddress}}/api/carts/9876abcd-4321-efab-cdef-1234567890ab
+
+###
+

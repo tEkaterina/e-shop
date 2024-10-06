@@ -7,8 +7,7 @@ namespace CartService.DataAccess.Extentions
     {
         public static IServiceCollection AddDataAccessServices(this IServiceCollection services, IConfiguration config)
         {
-            services.Configure<LiteDbOptions>(config.GetSection("LiteDbOptions"));
-            services.AddSingleton<IDbContext, DbContext>();
+            services.AddSingleton<IDbContext>(new DbContext(config.GetConnectionString("LiteDb")));
 
             services.AddScoped<ICartRepository, CartRepository>();
 
