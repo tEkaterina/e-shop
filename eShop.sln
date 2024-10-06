@@ -3,12 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CartService", "CartService\CartService.csproj", "{DED373DF-FFB3-4EAA-B28B-86C19DC22460}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CartService", "CartService\CartService.csproj", "{DED373DF-FFB3-4EAA-B28B-86C19DC22460}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AA57409B-15E1-4DFB-B158-19B82F23312C}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{3B5F4713-CF90-48A3-88D7-D819422398B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CartService.UnitTests", "CartService.UnitTests\CartService.UnitTests.csproj", "{9BB5E8E7-AE05-4D35-AF95-3EDF8CA078E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CartService.IntegrationTests", "CartService.IntegrationTests\CartService.IntegrationTests.csproj", "{124CB765-17D2-4C57-8033-C6D146E85CC5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CartService", "CartService", "{06970821-ABBB-4AED-9DFE-85009C90C98B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,9 +28,22 @@ Global
 		{DED373DF-FFB3-4EAA-B28B-86C19DC22460}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DED373DF-FFB3-4EAA-B28B-86C19DC22460}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DED373DF-FFB3-4EAA-B28B-86C19DC22460}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BB5E8E7-AE05-4D35-AF95-3EDF8CA078E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BB5E8E7-AE05-4D35-AF95-3EDF8CA078E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BB5E8E7-AE05-4D35-AF95-3EDF8CA078E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BB5E8E7-AE05-4D35-AF95-3EDF8CA078E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{124CB765-17D2-4C57-8033-C6D146E85CC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{124CB765-17D2-4C57-8033-C6D146E85CC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{124CB765-17D2-4C57-8033-C6D146E85CC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{124CB765-17D2-4C57-8033-C6D146E85CC5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9BB5E8E7-AE05-4D35-AF95-3EDF8CA078E2} = {06970821-ABBB-4AED-9DFE-85009C90C98B}
+		{124CB765-17D2-4C57-8033-C6D146E85CC5} = {06970821-ABBB-4AED-9DFE-85009C90C98B}
+		{06970821-ABBB-4AED-9DFE-85009C90C98B} = {3B5F4713-CF90-48A3-88D7-D819422398B7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F342E259-353A-4680-8B30-67FC20AEC523}
