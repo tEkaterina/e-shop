@@ -1,5 +1,5 @@
 ﻿using CartService.DataAccess.LiteDb;
-using CartService.DataAccess.Models;
+using CartService.DataAccess.Entities;
 
 namespace CartService.DataAccess.Repository
 {
@@ -8,7 +8,7 @@ namespace CartService.DataAccess.Repository
         private readonly IDbContext _db = db;
 
 
-        public bool SaveCart(Cart cart)
+        public bool SaveCart(CartEntity cart)
         {
             return _db.RunOnCarts((carts) =>
             {
@@ -41,7 +41,7 @@ namespace CartService.DataAccess.Repository
             });
         }
 
-        public Cart? GetCart(string id)
+        public CartEntity? GetCart(string id)
         {
             return _db.RunOnCarts((carts) =>
             {

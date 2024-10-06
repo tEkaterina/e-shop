@@ -1,13 +1,13 @@
-﻿using CartService.DataAccess.Models;
+﻿using CartService.DataAccess.Entities;
 
 namespace CartService.DataAccess.Repository
 {
     public interface ICartRepository
     {
-        public Cart? GetCart(string id);
+        public CartEntity? GetCart(string id);
 
         public bool DeleteCart(string id);
 
-        public bool SaveCart(Cart cart);
+        public bool SaveCart(CartEntity cart);
     }
 }

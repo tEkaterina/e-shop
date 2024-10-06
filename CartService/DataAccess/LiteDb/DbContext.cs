@@ -1,4 +1,4 @@
-﻿using CartService.DataAccess.Models;
+﻿using CartService.DataAccess.Entities;
 using CartService.DataAccess.Exceptions;
 using LiteDB;
 using Microsoft.Extensions.Options;
@@ -24,10 +24,10 @@ namespace CartService.DataAccess.LiteDb
             return new LiteDatabase(_databasePath);
         }
 
-        public T RunOnCarts<T>(Func<ILiteCollection<Cart>, T> action)
+        public T RunOnCarts<T>(Func<ILiteCollection<CartEntity>, T> action)
         {
             using var db = Get();
-            return action(db.GetCollection<Cart>("CartCollection"));
+            return action(db.GetCollection<CartEntity>("CartCollection"));
         }
     }
 }
