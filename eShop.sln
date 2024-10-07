@@ -3,12 +3,24 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CartService", "CartService\CartService.csproj", "{DED373DF-FFB3-4EAA-B28B-86C19DC22460}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CartService", "CartService\CartService.csproj", "{DED373DF-FFB3-4EAA-B28B-86C19DC22460}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AA57409B-15E1-4DFB-B158-19B82F23312C}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{E2DA53F5-1547-4248-A681-F7B5DDB280C1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CatalogService", "CatalogService", "{BA013276-B30A-4CF1-86E6-0D0BA4FDD885}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogService.Domain", "CatalogService\CatalogService.Domain\CatalogService.Domain.csproj", "{B02509E1-FA0B-46A7-9895-7DFD79AE984A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogService.Application", "CatalogService\CatalogService.Application\CatalogService.Application.csproj", "{A416C35D-E39E-4794-BA41-E96330CFB1B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogService.Infrastructure", "CatalogService\CatalogService.Infrastructure\CatalogService.Infrastructure.csproj", "{B59FAAD6-5C50-49B7-9C27-D42D28A742E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogService.Web", "CatalogService\CatalogService.Web\CatalogService.Web.csproj", "{A7768F4E-9B25-4330-9740-B26E35E9D2AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,9 +32,31 @@ Global
 		{DED373DF-FFB3-4EAA-B28B-86C19DC22460}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DED373DF-FFB3-4EAA-B28B-86C19DC22460}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DED373DF-FFB3-4EAA-B28B-86C19DC22460}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B02509E1-FA0B-46A7-9895-7DFD79AE984A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B02509E1-FA0B-46A7-9895-7DFD79AE984A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B02509E1-FA0B-46A7-9895-7DFD79AE984A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B02509E1-FA0B-46A7-9895-7DFD79AE984A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A416C35D-E39E-4794-BA41-E96330CFB1B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A416C35D-E39E-4794-BA41-E96330CFB1B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A416C35D-E39E-4794-BA41-E96330CFB1B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A416C35D-E39E-4794-BA41-E96330CFB1B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B59FAAD6-5C50-49B7-9C27-D42D28A742E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B59FAAD6-5C50-49B7-9C27-D42D28A742E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B59FAAD6-5C50-49B7-9C27-D42D28A742E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B59FAAD6-5C50-49B7-9C27-D42D28A742E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7768F4E-9B25-4330-9740-B26E35E9D2AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7768F4E-9B25-4330-9740-B26E35E9D2AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7768F4E-9B25-4330-9740-B26E35E9D2AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7768F4E-9B25-4330-9740-B26E35E9D2AC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B02509E1-FA0B-46A7-9895-7DFD79AE984A} = {BA013276-B30A-4CF1-86E6-0D0BA4FDD885}
+		{A416C35D-E39E-4794-BA41-E96330CFB1B6} = {BA013276-B30A-4CF1-86E6-0D0BA4FDD885}
+		{B59FAAD6-5C50-49B7-9C27-D42D28A742E7} = {BA013276-B30A-4CF1-86E6-0D0BA4FDD885}
+		{A7768F4E-9B25-4330-9740-B26E35E9D2AC} = {BA013276-B30A-4CF1-86E6-0D0BA4FDD885}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F342E259-353A-4680-8B30-67FC20AEC523}
