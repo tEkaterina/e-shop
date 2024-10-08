@@ -1,4 +1,5 @@
-﻿using CatalogService.Infrastructure.DataAccess;
+﻿using CatalogService.Application.Common.Interfaces;
+using CatalogService.Infrastructure.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +18,8 @@ namespace CatalogService.Infrastructure
             {
                 options.UseSqlite(connectionString);
             });
+
+            services.AddScoped<IApplicationDbContext>(options => options.GetRequiredService<ApplicationDbContext>());
 
             return services;
         }
