@@ -5,59 +5,54 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CatalogService.Application.IntegrationTests
+namespace CatalogService.Application.IntegrationTests;
+
+public class IntegrationTestFixture : IDisposable
 {
-    public class IntegrationTestFixture : IDisposable
+    private readonly IServiceScope _serviceScope;
+    public IServiceProvider ServiceProvider { get; init; }
+
+    public IntegrationTestFixture()
     {
-        public IServiceProvider ServiceProvider { get; init; }
+        var services = new ServiceCollection();
 
-        public IntegrationTestFixture()
+        Dictionary<string, string?>? inMemorySettings = new()
         {
-            var services = new ServiceCollection();
+            {"ConnectionStrings:DefaultConnection", "DataSource=:memory:"}
+        };
 
-            Dictionary<string, string?>? inMemorySettings = new()
-            {
-                {"ConnectionStrings:DefaultConnection", "DataSource=:memory:"}
-            };
+        var configuration = new ConfigurationBuilder()
+            .AddInMemoryCollection(inMemorySettings)
+            .Build();
 
-            var configuration = new ConfigurationBuilder()
-                .AddInMemoryCollection(inMemorySettings)
-                .Build();
+        services.AddAppServices();
+        services.AddInfrastructureServices(configuration);
 
-            services.AddAppServices();
-            services.AddInfrastructureServices(configuration);
+        _serviceScope = services.BuildServiceProvider().CreateScope();
+        ServiceProvider = _serviceScope.ServiceProvider;
 
-            ServiceProvider = services.BuildServiceProvider();
+        RestoreDataBase();
+    }
 
-            RestoreDb();
-        }
+    public async Task<T> ExecuteCommand<T>(IRequest<T> command)
+    {
+        var mediatr = ServiceProvider.GetRequiredService<ISender>();
 
-        public async Task<T> ExecuteCommand<T>(IRequest<T> command)
-        {
-            using var scope = ServiceProvider.CreateScope();
-            var mediatr = scope.ServiceProvider.GetRequiredService<ISender>();
-
-            return await mediatr.Send(command);
-        }
+        return await mediatr.Send(command);
+    }
 
 
-        public void Dispose()
-        {
-            using var scope = ServiceProvider.CreateScope();
+    public void Dispose()
+    {
+        var context = ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        context.Database.CloseConnection();
+        _serviceScope.Dispose();
+    }
 
-            var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            context.Database.CloseConnection();
-        }
-
-        private void RestoreDb()
-        {
-            var scope = ServiceProvider.CreateScope();
-
-            var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-            context.Database.OpenConnection();
-            context.Database.EnsureCreated();
-            context.Database.Migrate();
-
-        }
+    private void RestoreDataBase()
+    {
+        var context = ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        context.Database.OpenConnection();
+        context.Database.EnsureCreated();
     }
 }
