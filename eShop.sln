@@ -19,13 +19,17 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CartService", "CartService", "{06970821-ABBB-4AED-9DFE-85009C90C98B}"
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CatalogService", "CatalogService", "{BA013276-B30A-4CF1-86E6-0D0BA4FDD885}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogService.Domain", "CatalogService\CatalogService.Domain\CatalogService.Domain.csproj", "{B02509E1-FA0B-46A7-9895-7DFD79AE984A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatalogService.Domain", "CatalogService\CatalogService.Domain\CatalogService.Domain.csproj", "{B02509E1-FA0B-46A7-9895-7DFD79AE984A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogService.Application", "CatalogService\CatalogService.Application\CatalogService.Application.csproj", "{A416C35D-E39E-4794-BA41-E96330CFB1B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatalogService.Application", "CatalogService\CatalogService.Application\CatalogService.Application.csproj", "{A416C35D-E39E-4794-BA41-E96330CFB1B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogService.Infrastructure", "CatalogService\CatalogService.Infrastructure\CatalogService.Infrastructure.csproj", "{B59FAAD6-5C50-49B7-9C27-D42D28A742E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatalogService.Infrastructure", "CatalogService\CatalogService.Infrastructure\CatalogService.Infrastructure.csproj", "{B59FAAD6-5C50-49B7-9C27-D42D28A742E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogService.Web", "CatalogService\CatalogService.Web\CatalogService.Web.csproj", "{A7768F4E-9B25-4330-9740-B26E35E9D2AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatalogService.Web", "CatalogService\CatalogService.Web\CatalogService.Web.csproj", "{A7768F4E-9B25-4330-9740-B26E35E9D2AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogService.Application.IntegrationTests", "tests\CatalogService\CatalogService.Application.IntegrationTests\CatalogService.Application.IntegrationTests.csproj", "{C0D55DB1-87B2-47A8-BE15-B93AAA67101F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogService.Application.UnitTests", "tests\CatalogService\CatalogService.ApplicationUnitTests\CatalogService.Application.UnitTests.csproj", "{8CCF8EE2-2EB2-482A-8E60-5C599D965675}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +65,14 @@ Global
 		{A7768F4E-9B25-4330-9740-B26E35E9D2AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7768F4E-9B25-4330-9740-B26E35E9D2AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7768F4E-9B25-4330-9740-B26E35E9D2AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0D55DB1-87B2-47A8-BE15-B93AAA67101F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0D55DB1-87B2-47A8-BE15-B93AAA67101F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0D55DB1-87B2-47A8-BE15-B93AAA67101F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0D55DB1-87B2-47A8-BE15-B93AAA67101F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CCF8EE2-2EB2-482A-8E60-5C599D965675}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CCF8EE2-2EB2-482A-8E60-5C599D965675}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CCF8EE2-2EB2-482A-8E60-5C599D965675}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CCF8EE2-2EB2-482A-8E60-5C599D965675}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +85,8 @@ Global
 		{A416C35D-E39E-4794-BA41-E96330CFB1B6} = {BA013276-B30A-4CF1-86E6-0D0BA4FDD885}
 		{B59FAAD6-5C50-49B7-9C27-D42D28A742E7} = {BA013276-B30A-4CF1-86E6-0D0BA4FDD885}
 		{A7768F4E-9B25-4330-9740-B26E35E9D2AC} = {BA013276-B30A-4CF1-86E6-0D0BA4FDD885}
+		{C0D55DB1-87B2-47A8-BE15-B93AAA67101F} = {E2DA53F5-1547-4248-A681-F7B5DDB280C1}
+		{8CCF8EE2-2EB2-482A-8E60-5C599D965675} = {E2DA53F5-1547-4248-A681-F7B5DDB280C1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F342E259-353A-4680-8B30-67FC20AEC523}
