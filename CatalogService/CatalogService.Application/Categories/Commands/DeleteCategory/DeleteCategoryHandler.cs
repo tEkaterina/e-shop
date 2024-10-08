@@ -14,7 +14,7 @@ namespace CatalogService.Application.Categories.Commands.DeleteCategory
 
             _dbContext.Categories.Remove(category);
 
-            await _dbContext.SaveAsync(cancellationToken);
+            await _dbContext.SaveChangesAsync(cancellationToken);
         }
     }
 }

@@ -18,9 +18,9 @@ namespace CatalogService.Application.Products.Commands.CreateProduct
                 Price = request.Price,
             };
 
-            _dbContext.Produts.Add(product);
+            _dbContext.Products.Add(product);
 
-            await _dbContext.SaveAsync(cancellationToken);
+            await _dbContext.SaveChangesAsync(cancellationToken);
 
             return product.Id;
         }

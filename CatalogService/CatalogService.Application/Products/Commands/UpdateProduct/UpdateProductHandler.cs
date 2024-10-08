@@ -8,7 +8,7 @@ public class UpdateProductHandler(IApplicationDbContext dbContext) : IRequestHan
 
     public async Task Handle(UpdateProductCommand request, CancellationToken cancellationToken)
     {
-        var product = await this._dbContext.Produts.FindAsync([request.Id], cancellationToken);
+        var product = await this._dbContext.Products.FindAsync([request.Id], cancellationToken);
 
         Guard.Against.NotFound(request.Id, product);
 
@@ -19,6 +19,6 @@ public class UpdateProductHandler(IApplicationDbContext dbContext) : IRequestHan
         product.Image = request.Image;
         product.Name = request.Name;
 
-        await _dbContext.SaveAsync(cancellationToken);
+        await _dbContext.SaveChangesAsync(cancellationToken);
     }
 }

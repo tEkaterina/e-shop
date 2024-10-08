@@ -11,7 +11,7 @@ namespace CatalogService.Application.Products.Queries.GetProducts
 
         public async Task<IReadOnlyCollection<ProductDto>> Handle(GetProductsQuery request, CancellationToken cancellationToken)
         {
-            IQueryable<Product> products = _dbContext.Produts;
+            IQueryable<Product> products = _dbContext.Products;
 
             if (request.CategoryId.HasValue)
             {
