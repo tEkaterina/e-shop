@@ -16,6 +16,6 @@ public class UpdateCategoryHandler(IApplicationDbContext dbContext) : IRequestHa
         category.Name = request.Name;
         category.ParentCategoryId = request.ParentCategoryId;
 
-        await _dbContext.SaveAsync(cancellationToken);
+        await _dbContext.SaveChangesAsync(cancellationToken);
     }
 }

@@ -10,7 +10,7 @@ namespace CatalogService.Application.Products.Queries.GetProduct
 
         public async Task<ProductDto> Handle(GetProductQuery request, CancellationToken cancellationToken)
         {
-            var product = await _dbContext.Produts.FindAsync([request.Id], cancellationToken);
+            var product = await _dbContext.Products.FindAsync([request.Id], cancellationToken);
 
             Guard.Against.NotFound(request.Id, product);
 
