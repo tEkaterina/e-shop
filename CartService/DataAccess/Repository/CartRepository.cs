@@ -1,12 +1,11 @@
 ﻿using CartService.DataAccess.LiteDb;
-using CartService.DataAccess.Entities;
+using CartService.DataAccess.Common.Entities;
 
 namespace CartService.DataAccess.Repository
 {
     public class CartRepository(IDbContext db) : ICartRepository
     {
         private readonly IDbContext _db = db;
-
 
         public bool SaveCart(CartEntity cart)
         {

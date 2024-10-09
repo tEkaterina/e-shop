@@ -1,4 +1,4 @@
-﻿namespace CartService.Services.Dto
+﻿namespace CartService.Services.Common.Dto
 {
     public record CartDto
     {

@@ -1,7 +1,7 @@
 ﻿using CartService.DataAccess.LiteDb;
 using CartService.DataAccess.Repository;
 
-namespace CartService.DataAccess.Extentions
+namespace CartService.DataAccess
 {
     public static class DependencyInjection
     {

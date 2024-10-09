@@ -1,5 +1,5 @@
-using CartService.DataAccess.Extentions;
-using CartService.Services.Extentions;
+using CartService.DataAccess;
+using CartService.Services;
 
 public class Program
 {

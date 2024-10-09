@@ -1,9 +1,9 @@
 ﻿using CartService.Services.Cart;
 using CartService.Services.Catalog;
-using CartService.Services.Mappers;
+using CartService.Services.Common.Mappers;
 using CartService.Services.Product;
 
-namespace CartService.Services.Extentions;
+namespace CartService.Services;
 
 public static class DependencyInjection
 {

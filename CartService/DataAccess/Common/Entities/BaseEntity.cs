@@ -1,4 +1,4 @@
-﻿namespace CartService.DataAccess.Entities;
+﻿namespace CartService.DataAccess.Common.Entities;
 
 public record BaseEntity
 {

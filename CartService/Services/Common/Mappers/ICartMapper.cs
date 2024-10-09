@@ -1,7 +1,7 @@
-﻿using CartService.Services.Dto;
-using CartService.DataAccess.Entities;
+﻿using CartService.DataAccess.Common.Entities;
+using CartService.Services.Common.Dto;
 
-namespace CartService.Services.Mappers;
+namespace CartService.Services.Common.Mappers;
 
 public interface ICartMapper
 {

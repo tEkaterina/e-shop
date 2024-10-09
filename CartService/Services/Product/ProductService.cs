@@ -1,26 +1,23 @@
 ﻿using CartService.Services.Catalog;
-using CartService.Services.Dto;
+using CartService.Services.Common.Dto;
 
-namespace CartService.Services.Product
+namespace CartService.Services.Product;
+
+public class ProductService(ICatalogService catalogService) : IProductService
 {
-    public class ProductService(ICatalogService catalogService) : IProductService
+    private readonly ICatalogService _catalogService = catalogService;
+
+    public async Task<ProductDto?> GetProductAsync(int productId)
     {
-        private readonly ICatalogService _catalogService = catalogService;
+        CatalogProduct? product = await _catalogService.GetAsync(productId);
 
-        public async Task<ProductDto?> GetProductAsync(int productId)
+        Guard.Against.NotFound(productId, product);
+
+        return new ProductDto(productId, product.Name)
         {
-            CatalogProduct? product = await _catalogService.GetAsync(productId);
-            if (product == null)
-            {
-                return null;
-            }
-
-            return new ProductDto(productId, product.Name)
-            {
-                Description = product.Description,
-                ImageUrl = product.ImageUrl,
-                Price = product.Price,
-            };
-        }
+            Description = product.Description,
+            Image = product.ImageUrl,
+            Price = product.Price,
+        };
     }
 }

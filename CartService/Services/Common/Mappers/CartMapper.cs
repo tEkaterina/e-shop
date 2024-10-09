@@ -1,8 +1,8 @@
-﻿using CartService.Services.Dto;
-using CartService.DataAccess.Entities;
-using CartService.Services.Product;
+﻿using CartService.Services.Product;
+using CartService.Services.Common.Dto;
+using CartService.DataAccess.Common.Entities;
 
-namespace CartService.Services.Mappers;
+namespace CartService.Services.Common.Mappers;
 
 public class CartMapper(IProductService productService) : ICartMapper
 {

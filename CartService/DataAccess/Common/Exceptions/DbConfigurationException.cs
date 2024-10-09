@@ -1,4 +1,4 @@
-﻿namespace CartService.DataAccess.Exceptions
+﻿namespace CartService.DataAccess.Common.Exceptions
 {
     public class DbConfigurationException : Exception
     {

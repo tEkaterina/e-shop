@@ -1,10 +1,10 @@
-﻿using CartService.Services.Dto;
+﻿using CartService.Services.Common.Dto;
 
 namespace CartService.Services.Cart;
 
 public interface ICartService
 {
-    Task<CartDto?> GetAsync(string cartId);
+    Task<CartDto> GetAsync(string cartId);
 
     Task<CartDto> GetOrCreateAsync(string cartId);
 

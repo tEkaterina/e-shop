@@ -1,6 +1,5 @@
 ﻿using CartService.Services.Cart;
-using CartService.Services.Dto;
-using CartService.Services.Exceptions;
+using CartService.Services.Common.Dto;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -19,13 +18,15 @@ public class CartsController(ICartService cartService) : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(string id)
     {
-        CartDto? cart = await _cartService.GetAsync(id);
-        if (cart == null)
+        try
         {
-            return NotFound(id);
+            CartDto cart = await _cartService.GetAsync(id);
+            return Ok(cart);
         }
-
-        return Ok(cart);
+        catch (NotFoundException)
+        {
+            return NotFound("The provided cart does not exist: " + id);
+        }
     }
 
     [HttpPost]
@@ -39,25 +40,33 @@ public class CartsController(ICartService cartService) : ControllerBase
     [HttpDelete("{id}")]
     public IActionResult Delete(string id)
     {
-        if (!_cartService.Delete(id))
+        try
+        {
+            if (!_cartService.Delete(id))
+            {
+                return NotFound(id);
+            }
+
+            return NoContent();
+        }
+        catch (NotFoundException)
         {
             return NotFound(id);
         }
-
-        return NoContent();
     }
 
     [HttpGet("{cartId}/products")]
     public async Task<IActionResult> GetProducts(string cartId)
     {
-        CartDto? cart = await _cartService.GetAsync(cartId);
-
-        if (cart == null)
+        try
         {
-            return NotFound(cartId);
+            CartDto cart = await _cartService.GetAsync(cartId);
+            return Ok(cart.Products);
         }
-
-        return Ok(cart.Products);
+        catch (NotFoundException)
+        {
+            return NotFound("The provided product does not exist: " + cartId);
+        }
     }
 
     [HttpPost("{cartId}/products")]
@@ -68,9 +77,9 @@ public class CartsController(ICartService cartService) : ControllerBase
             CartDto cart = await _cartService.AddProductAsync(cartId, request.ProductId, request.Count);
             return Ok(cart.Products);
         }
-        catch (ProductNotFoundException)
+        catch (NotFoundException)
         {
-            return BadRequest("The provided product does not exist: " + request.ProductId);
+            return NotFound("The provided product does not exist: " + request.ProductId);
         }
     }
 
@@ -82,11 +91,7 @@ public class CartsController(ICartService cartService) : ControllerBase
             _cartService.DeleteProduct(cartId, productId, count);
             return NoContent();
         }
-        catch (ProductNotFoundException)
-        {
-            return BadRequest($"Unable to find {productId}.");
-        }
-        catch (CartNotFoundException)
+        catch (NotFoundException)
         {
             return NotFound(cartId);
         }

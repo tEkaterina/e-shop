@@ -1,7 +1,6 @@
-﻿using CartService.DataAccess.Entities;
-using CartService.DataAccess.Exceptions;
+﻿using CartService.DataAccess.Common.Entities;
+using CartService.DataAccess.Common.Exceptions;
 using LiteDB;
-using Microsoft.Extensions.Options;
 
 namespace CartService.DataAccess.LiteDb
 {

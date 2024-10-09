@@ -1,4 +1,4 @@
-﻿using CartService.DataAccess.Entities;
+﻿using CartService.DataAccess.Common.Entities;
 using LiteDB;
 
 namespace CartService.DataAccess.LiteDb

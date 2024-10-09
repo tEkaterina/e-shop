@@ -1,8 +1,8 @@
-﻿using CartService.DataAccess.Entities;
+﻿using CartService.DataAccess.Common.Entities;
 using CartService.DataAccess.Repository;
-using CartService.Services.Dto;
-using CartService.Services.Exceptions;
-using CartService.Services.Mappers;
+using CartService.Services.Common.Dto;
+using CartService.Services.Common.Mappers;
+using CartService.Services.Common.Exceptions;
 using CartService.Services.Product;
 
 namespace CartService.Services.Cart
@@ -13,11 +13,13 @@ namespace CartService.Services.Cart
         private readonly ICartRepository _cartRepository = cartRepository;
         private readonly IProductService _productService = productService;
 
-        public async Task<CartDto?> GetAsync(string cartId)
+        public async Task<CartDto> GetAsync(string cartId)
         {
             CartEntity? cart = _cartRepository.GetCart(cartId);
 
-            return cart == null ? null : await _mapper.ToCartDtoAsync(cart);
+            Guard.Against.NotFound(cartId, cart);
+
+            return await _mapper.ToCartDtoAsync(cart);
         }
 
         public async Task<CartDto> GetOrCreateAsync(string cartId)
@@ -34,8 +36,13 @@ namespace CartService.Services.Cart
 
         public bool DeleteProduct(string cartId, int productId, int? count = null)
         {
-            CartEntity cart = _cartRepository.GetCart(cartId) ?? throw new CartNotFoundException(cartId);
-            ProductItemEntity existingProduct = cart.ProductItems.FirstOrDefault(p => p.Id == productId) ?? throw new ProductNotFoundException(productId);
+            CartEntity? cart = _cartRepository.GetCart(cartId);
+
+            Guard.Against.NotFound(cartId, cart);
+
+            ProductItemEntity? existingProduct = cart.ProductItems.FirstOrDefault(p => p.Id == productId);
+
+            Guard.Against.NotFound(productId, existingProduct);
 
             if (count.HasValue)
             {
@@ -63,12 +70,18 @@ namespace CartService.Services.Cart
             }
             else
             {
-                ProductDto product = await _productService.GetProductAsync(productId) ?? throw new ProductNotFoundException(productId);
+                ProductDto? product = await _productService.GetProductAsync(productId);
+
+                Guard.Against.NotFound(productId, product);
+
                 product.Count = count;
                 cart.ProductItems.Add(_mapper.ToProductItem(product));
             }
 
-            _cartRepository.SaveCart(cart);
+            if (!_cartRepository.SaveCart(cart))
+            {
+                throw new CartCreateException(cartId);
+            }
 
             return await _mapper.ToCartDtoAsync(cart);
         }
