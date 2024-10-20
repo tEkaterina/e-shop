@@ -1,16 +1,10 @@
-﻿using CartService.DataAccess.Entities;
+﻿using CartService.DataAccess.Common.Entities;
 using CartService.DataAccess.Repository;
-using CartService.Services.Cart;
-using CartService.Services.Dto;
-using CartService.Services.Mappers;
+using CartService.Services.Common.Dto;
+using CartService.Services.Common.Mappers;
 using CartService.Services.Product;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CartService.UnitTests.Services.Cart
 {

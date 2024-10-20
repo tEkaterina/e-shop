@@ -2,7 +2,7 @@
 using Moq;
 using CartService.WebApi.Controllers;
 using CartService.Services.Cart;
-using CartService.Services.Dto;
+using CartService.Services.Common.Dto;
 using Microsoft.AspNetCore.Mvc;
 using FluentAssertions;
 

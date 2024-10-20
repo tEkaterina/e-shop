@@ -1,4 +1,4 @@
-﻿using CartService.Services.Dto;
+﻿using CartService.Services.Common.Dto;
 using FluentAssertions;
 using System.Net.Http.Json;
 
