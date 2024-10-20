@@ -1,17 +1,29 @@
-var builder = WebApplication.CreateBuilder(args);
+using CartService.DataAccess;
+using CartService.Services;
 
-// Add services to the container.
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+        // Add services to the container.
 
-var app = builder.Build();
+        builder.Services.AddControllers();
+        builder.Services.AddDataAccessServices(builder.Configuration);
+        builder.Services.AddApplicationServices();
 
-// Configure the HTTP request pipeline.
+        var app = builder.Build();
 
-app.UseHttpsRedirection();
+        // Configure the HTTP request pipeline.
 
-app.UseAuthorization();
+        app.UseHttpsRedirection();
 
-app.MapControllers();
+        app.UseAuthorization();
 
-app.Run();
+        app.MapControllers();
+
+        app.Run();
+
+    }
+}
