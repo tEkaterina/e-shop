@@ -1,15 +1,15 @@
 ﻿using CatalogService.Application.Common.Interfaces;
+using CatalogService.Application.Common.Models;
 using CatalogService.Application.Products.Queries.Common.Dto;
 using CatalogService.Application.Products.Queries.Common.Mappers;
-using Microsoft.EntityFrameworkCore;
 
 namespace CatalogService.Application.Products.Queries.GetProducts
 {
-    public class GetProductsHandler(IApplicationDbContext dbContext) : IRequestHandler<GetProductsQuery, IReadOnlyCollection<ProductDto>>
+    public class GetProductsHandler(IApplicationDbContext dbContext) : IRequestHandler<GetProductsQuery, PaginatedList<ProductDto>>
     {
         private readonly IApplicationDbContext _dbContext = dbContext;
 
-        public async Task<IReadOnlyCollection<ProductDto>> Handle(GetProductsQuery request, CancellationToken cancellationToken)
+        public Task<PaginatedList<ProductDto>> Handle(GetProductsQuery request, CancellationToken cancellationToken)
         {
             IQueryable<Product> products = _dbContext.Products;
 
@@ -18,7 +18,7 @@ namespace CatalogService.Application.Products.Queries.GetProducts
                 products = products.Where(x => x.CategoryId == request.CategoryId);
             }
 
-            return await products.Select(x => x.ToProductDto()).ToArrayAsync(cancellationToken);
+            return PaginatedList<ProductDto>.CreateAsync(products.Select(x => x.ToProductDto()), cancellationToken, request.PageIndex, request.PageSize);
         }
     }
 }
