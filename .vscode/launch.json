@@ -5,10 +5,17 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "C#: CartService Debug",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/CartService/CartService.csproj"
+        },
+        {
             "name": "C#: CatalogService.Web Debug",
             "type": "dotnet",
             "request": "launch",
             "projectPath": "${workspaceFolder}/CatalogService/CatalogService.Web/CatalogService.Web.csproj"
-        }
+        },
+
     ]
 }

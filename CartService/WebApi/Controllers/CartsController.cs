@@ -10,18 +10,21 @@ public record ModifyProductCountRequest(int ProductId, int Count = 1);
 public record CreateCartRequest(string Id);
 
 [Route("api/[controller]")]
+[ApiVersion("1.0")]
+[ApiVersion("2.0")]
 [ApiController]
 public class CartsController(ICartService cartService) : ControllerBase
 {
     private readonly ICartService _cartService = cartService;
 
+    [MapToApiVersion("2.0")]
     [HttpGet("{id}")]
-    public async Task<IActionResult> Get(string id)
+    public async Task<IActionResult> GetCategoryProducts(string id)
     {
         try
         {
             CartDto cart = await _cartService.GetAsync(id);
-            return Ok(cart);
+            return Ok(cart.Products);
         }
         catch (NotFoundException)
         {
@@ -29,12 +32,14 @@ public class CartsController(ICartService cartService) : ControllerBase
         }
     }
 
-    public async Task<IActionResult> GetCategoryProducts(string id)
+    [MapToApiVersion("1.0")]
+    [HttpGet("{id}")]
+    public async Task<IActionResult> Get(string id)
     {
         try
         {
             CartDto cart = await _cartService.GetAsync(id);
-            return Ok(cart.Products);
+            return Ok(cart);
         }
         catch (NotFoundException)
         {
