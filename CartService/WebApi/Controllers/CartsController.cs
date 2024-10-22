@@ -29,6 +29,19 @@ public class CartsController(ICartService cartService) : ControllerBase
         }
     }
 
+    public async Task<IActionResult> GetCategoryProducts(string id)
+    {
+        try
+        {
+            CartDto cart = await _cartService.GetAsync(id);
+            return Ok(cart.Products);
+        }
+        catch (NotFoundException)
+        {
+            return NotFound("The provided cart does not exist: " + id);
+        }
+    }
+
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] CreateCartRequest request)
     {
