@@ -10,7 +10,16 @@ Content-Type: application/json
 
 ###
 
-GET {{CartService_HostAddress}}/api/carts/9876abcd-4321-efab-cdef-1234567890ab/products
+GET {{CartService_HostAddress}}/api/carts/9876abcd-4321-efab-cdef-1234567890ab
+Accept: application/json
+Content-Type: application/json
+
+###
+
+GET {{CartService_HostAddress}}/api/carts/9876abcd-4321-efab-cdef-1234567890ab
+x-api-Version: 2.0
+Accept: application/json
+Content-Type: application/json
 
 ###
 
@@ -19,7 +28,7 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "ProductId": 100,
+  "ProductId": 34,
   "Count": 4
 }
 

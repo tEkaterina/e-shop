@@ -12,6 +12,7 @@ namespace CatalogService.Application.Categories.Commands.DeleteCategory
 
             Guard.Against.NotFound(request.Id, category);
 
+            _dbContext.Products.RemoveRange(category.Products);
             _dbContext.Categories.Remove(category);
 
             await _dbContext.SaveChangesAsync(cancellationToken);

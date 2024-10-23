@@ -20,7 +20,7 @@ namespace CatalogService.Infrastructure
             });
 
             services.AddScoped<IApplicationDbContext>(options => options.GetRequiredService<ApplicationDbContext>());
-
+            services.AddScoped<IDbInitializer, DbInitializer>();
             return services;
         }
     }

@@ -1,2 +1,80 @@
-@CatalogService.Web_HostAddress = http://localhost:5164
+@CatalogService_Web_HostAddress = http://localhost:5164
 
+// categories
+###
+
+POST {{CatalogService_Web_HostAddress}}/api/categories
+Content-Type: application/json
+
+{
+    "name": "Good products"
+}
+
+###
+
+GET {{CatalogService_Web_HostAddress}}/api/categories
+Content-Type: application/json
+
+###
+
+GET {{CatalogService_Web_HostAddress}}/api/categories/1
+Content-Type: application/json
+
+###
+
+PUT {{CatalogService_Web_HostAddress}}/api/categories/2
+Content-Type: application/json
+
+{
+    "name": "Good products",
+    "id": 2,
+    "parentCategoryId": 1
+}
+
+###
+
+DELETE {{CatalogService_Web_HostAddress}}/api/categories/2
+Content-Type: application/json
+
+// products
+###
+
+GET {{CatalogService_Web_HostAddress}}/api/products
+Content-Type: application/json
+
+###
+
+GET {{CatalogService_Web_HostAddress}}/api/products?categoryId=1&pageIndex=1&pageSize=2
+Content-Type: application/json
+
+###
+
+POST {{CatalogService_Web_HostAddress}}/api/products
+Content-Type: application/json
+
+{
+    "name": "Sample Product 4",
+    "categoryId": 1,
+    "price": 500,
+    "amount": 1000,
+    "description": "A basic product #3"
+}
+
+###
+
+PUT {{CatalogService_Web_HostAddress}}/api/products/2
+Content-Type: application/json
+
+{
+    "name": "Sample Product 2",
+    "id": 2,
+    "categoryId": 2,
+    "price": 199,
+    "amount": 10,
+    "description": "A basic product #2"
+}
+
+###
+
+DELETE {{CatalogService_Web_HostAddress}}/api/products/4
+Content-Type: application/json
