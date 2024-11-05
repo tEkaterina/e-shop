@@ -11,11 +11,15 @@ public class CatalogServiceWebAppFactory : WebApplicationFactory<Program>
     {
         var configuration = new ConfigurationBuilder()
             .SetBasePath(AppContext.BaseDirectory)
-            .AddJsonFile("appsettings.test.json", optional: false, reloadOnChange: true)
+            .AddJsonFile("appsettings.Test.json", optional: false, reloadOnChange: false)
             .Build();
 
-        builder.ConfigureServices(services => services.AddSingleton<IConfiguration>(configuration));
-
-        builder.UseEnvironment("Development");
+        builder
+            .UseConfiguration(configuration)
+            .ConfigureAppConfiguration(configurationBuilder =>
+            {
+                configurationBuilder.Sources.Clear();
+                configurationBuilder.AddJsonFile("appsettings.Test.json", optional: false, reloadOnChange: false);
+            });
     }
 }

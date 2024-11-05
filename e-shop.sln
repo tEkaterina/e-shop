@@ -29,7 +29,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatalogService.Application.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatalogService.Application.UnitTests", "tests\CatalogService\CatalogService.ApplicationUnitTests\CatalogService.Application.UnitTests.csproj", "{559A6B5A-2515-4C87-889E-4E6CEB355A26}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogService.Web.IntegrationTests", "tests\CatalogService\CatalogService.Web.IntegrationTests\CatalogService.Web.IntegrationTests.csproj", "{00AA0F8F-49E5-4854-8013-389B8319D995}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatalogService.Web.IntegrationTests", "tests\CatalogService\CatalogService.Web.IntegrationTests\CatalogService.Web.IntegrationTests.csproj", "{00AA0F8F-49E5-4854-8013-389B8319D995}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

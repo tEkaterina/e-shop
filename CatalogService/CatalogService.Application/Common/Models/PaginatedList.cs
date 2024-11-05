@@ -20,7 +20,7 @@ public class PaginatedList<T>
         TotalCount = totalCount;
     }
 
-    public static async Task<PaginatedList<T>> CreateAsync(IQueryable<T> source, CancellationToken cancellationToken, int pageIndex = 1, int pageSize = 10)
+    public static async Task<PaginatedList<T>> CreateAsync(IQueryable<T> source, CancellationToken cancellationToken, int pageIndex, int pageSize)
     {
         var count = await source.CountAsync<T>(cancellationToken);
         var totalPages = (int)Math.Ceiling(count / (double)pageIndex);

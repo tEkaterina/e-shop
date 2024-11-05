@@ -81,7 +81,7 @@ public class CartsController(ICartService cartService) : ControllerBase
     /// Deletes the provided cart
     /// </summary>
     /// <param name="id">The cart ID to be removed</param>
-    /// <response code="204">Cart was removed</response>
+    /// <response code="200">Cart was removed</response>
     /// <response code="404">The provided cart does not exist</response>
     [HttpDelete("{id}")]
     public IActionResult Delete(string id)
@@ -93,7 +93,7 @@ public class CartsController(ICartService cartService) : ControllerBase
                 return NotFound(id);
             }
 
-            return NoContent();
+            return Ok();
         }
         catch (NotFoundException)
         {
