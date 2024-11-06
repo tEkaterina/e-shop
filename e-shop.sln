@@ -31,6 +31,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatalogService.Application.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatalogService.Web.IntegrationTests", "tests\CatalogService\CatalogService.Web.IntegrationTests\CatalogService.Web.IntegrationTests.csproj", "{00AA0F8F-49E5-4854-8013-389B8319D995}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{34859C96-61DB-440A-B2D0-F5D02D4C545E}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\start-rabbitmq.bat = scripts\start-rabbitmq.bat
+		scripts\stop-rabbitmq.bat = scripts\stop-rabbitmq.bat
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
