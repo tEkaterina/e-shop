@@ -1,6 +1,6 @@
 ﻿using CartService.DataAccess.Common.Entities;
 
-namespace CartService.DataAccess.Repository
+namespace CartService.DataAccess.Repository.Cart
 {
     public interface ICartRepository
     {
@@ -9,5 +9,7 @@ namespace CartService.DataAccess.Repository
         public bool DeleteCart(string id);
 
         public bool SaveCart(CartEntity cart);
+
+        public bool Exists(string id);
     }
 }

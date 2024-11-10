@@ -1,8 +1,8 @@
-﻿namespace CartService.DataAccess.Common.Entities;
+﻿using LiteDB;
 
-public record CartEntity() : BaseEntity
+namespace CartService.DataAccess.Common.Entities;
+
+public record CartEntity(string Id)
 {
-    public string? UserId { get; set; }
-
-    public IList<ProductItemEntity> ProductItems { get; init; } = [];
+    public IList<AddedProductEntity> Products { get; init; } = [];
 }

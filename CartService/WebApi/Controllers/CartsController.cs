@@ -1,22 +1,20 @@
 ﻿using CartService.Services.Cart;
 using CartService.Services.Common.Dto;
+using CartService.Services.Product;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace CartService.WebApi.Controllers;
 
-public record ModifyProductCountRequest(int ProductId, int Count = 1);
 public record CreateCartRequest(string Id);
 
 [Route("api/[controller]")]
 [ApiVersion("1.0")]
 [ApiVersion("2.0")]
 [ApiController]
-public class CartsController(ICartService cartService) : ControllerBase
+public class CartsController(ICartService _cartService, IProductService _productService) : ControllerBase
 {
-    private readonly ICartService _cartService = cartService;
-
     /// <summary>
     /// Provides content of the provided cart
     /// </summary>
@@ -118,7 +116,7 @@ public class CartsController(ICartService cartService) : ControllerBase
         }
         catch (NotFoundException)
         {
-            return NotFound("The provided product does not exist: " + cartId);
+            return NotFound("The provided cart does not exist: " + cartId);
         }
     }
 
@@ -131,16 +129,17 @@ public class CartsController(ICartService cartService) : ControllerBase
     /// <response code="200">A product was added</response>
     /// <response code="404">The provided cart does not exist</response>
     [HttpPost("{cartId}/products")]
-    public async Task<IActionResult> AddProduct(string cartId, [FromBody] ModifyProductCountRequest request)
+    public async Task<IActionResult> AddProduct(string cartId, [FromBody] ProductDto request)
     {
         try
         {
-            CartDto cart = await _cartService.AddProductAsync(cartId, request.ProductId, request.Count);
+            _productService.CreateOrSaveProduct(request);
+            CartDto cart = await _cartService.AddProductAsync(cartId, request.Id, request.Count);
             return Ok(cart.Products);
         }
         catch (NotFoundException)
         {
-            return NotFound("The provided product does not exist: " + request.ProductId);
+            return NotFound("The provided product cannot be found: " + request.Id);
         }
     }
 

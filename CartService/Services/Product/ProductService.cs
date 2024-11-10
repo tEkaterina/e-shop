@@ -1,23 +1,24 @@
-﻿using CartService.Services.Catalog;
+﻿using CartService.DataAccess.Common.Entities;
+using CartService.DataAccess.Repository.Product;
 using CartService.Services.Common.Dto;
+using CartService.Services.Product.Mappers;
 
 namespace CartService.Services.Product;
 
-public class ProductService(ICatalogService catalogService) : IProductService
+public class ProductService(IProductRepository _repository, IProductMapper _mapper) : IProductService
 {
-    private readonly ICatalogService _catalogService = catalogService;
-
-    public async Task<ProductDto?> GetProductAsync(int productId)
+    public ProductDto GetProduct(int productId)
     {
-        CatalogProduct? product = await _catalogService.GetAsync(productId);
+        ProductEntity product = _repository.GetProduct(productId);
 
         Guard.Against.NotFound(productId, product);
 
-        return new ProductDto(productId, product.Name)
-        {
-            Description = product.Description,
-            Image = product.ImageUrl,
-            Price = product.Price,
-        };
+        return _mapper.ToProductDto(product);
+    }
+
+    public void CreateOrSaveProduct(ProductDto product)
+    {
+        ProductEntity mappedProduct = _mapper.ToProduct(product);
+        _repository.SaveProduct(mappedProduct);
     }
 }
