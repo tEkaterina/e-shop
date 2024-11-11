@@ -1,27 +1,31 @@
 ﻿using CatalogService.Application.Common.Interfaces;
 using CatalogService.Infrastructure.DataAccess;
+using EShop.MessageBrokerClient;
+using EShop.MessageBrokerClient.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CatalogService.Infrastructure
+namespace CatalogService.Infrastructure;
+
+public static class DependencyInjection
 {
-    public static class DependencyInjection
+    public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
-        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
+        var connectionString = configuration.GetConnectionString("DefaultConnection");
+
+        Guard.Against.NullOrEmpty(connectionString);
+
+        services.AddDbContext<ApplicationDbContext>(options =>
         {
-            var connectionString = configuration.GetConnectionString("DefaultConnection");
+            options.UseSqlite(connectionString);
+        });
 
-            Guard.Against.NullOrEmpty(connectionString);
+        services.AddScoped<IApplicationDbContext>(options => options.GetRequiredService<ApplicationDbContext>());
+        services.AddScoped<IDbInitializer, DbInitializer>();
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-            {
-                options.UseSqlite(connectionString);
-            });
+        services.AddMessageBroker(configuration);
 
-            services.AddScoped<IApplicationDbContext>(options => options.GetRequiredService<ApplicationDbContext>());
-            services.AddScoped<IDbInitializer, DbInitializer>();
-            return services;
-        }
+        return services;
     }
 }

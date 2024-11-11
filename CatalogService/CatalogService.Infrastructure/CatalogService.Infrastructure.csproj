@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\EShop.MessageBrokerClient\EShop.MessageBrokerClient.csproj" />
     <ProjectReference Include="..\CatalogService.Application\CatalogService.Application.csproj" />
   </ItemGroup>
 

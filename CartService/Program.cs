@@ -3,10 +3,11 @@ using CartService.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using CartService.WebApi;
+using EShop.MessageBrokerClient;
 
 public class Program
 {
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +28,10 @@ public class Program
         builder.Services.AddOpenApiGeneration();
 
         var app = builder.Build();
+
+        // Initialize
+        var messageBroker = app.Services.GetRequiredService<IMessageBroker>();
+        await messageBroker.InitializeAsync();
 
         // Configure the HTTP request pipeline.
 

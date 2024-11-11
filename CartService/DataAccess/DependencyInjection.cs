@@ -1,6 +1,8 @@
 ﻿using CartService.DataAccess.LiteDb;
 using CartService.DataAccess.Repository.Cart;
 using CartService.DataAccess.Repository.Product;
+using EShop.MessageBrokerClient;
+using EShop.MessageBrokerClient.Configuration;
 
 namespace CartService.DataAccess
 {
@@ -22,6 +24,8 @@ namespace CartService.DataAccess
             services.AddScoped<IDbContext, DbContext>();
             services.AddScoped<ICartRepository, CartRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
+
+            services.AddMessageBroker(config);
 
             return services;
         }

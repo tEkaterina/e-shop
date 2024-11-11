@@ -1,9 +1,8 @@
 ﻿using LiteDB;
 
-namespace CartService.DataAccess.LiteDb
+namespace CartService.DataAccess.LiteDb;
+
+public interface IDbInstance
 {
-    public interface IDbInstance
-    {
-        public T Execute<T>(Func<LiteDatabase, T> action);
-    }
+    public T Execute<T>(Func<LiteDatabase, T> action);
 }

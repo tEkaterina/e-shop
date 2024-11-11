@@ -1,19 +1,27 @@
 ﻿using CartService.DataAccess.Common.Exceptions;
 using LiteDB;
 
-namespace CartService.DataAccess.LiteDb
-{
-    internal class DbInstance(string connectionString) : IDbInstance
-    {
-        public T Execute<T>(Func<LiteDatabase, T> action)
-        {
-            if (string.IsNullOrEmpty(connectionString))
-            {
-                throw new DbConfigurationException();
-            }
+namespace CartService.DataAccess.LiteDb;
 
-            using var db = new LiteDatabase(connectionString);
-            return action(db);
+internal class DbInstance : IDbInstance
+{
+    private readonly string _connectionString;
+
+    public DbInstance(string? connectionString)
+    {
+        if (string.IsNullOrEmpty(connectionString))
+        {
+            throw new DbConfigurationException();
         }
+
+        _connectionString = connectionString;
+    }
+
+    public T Execute<T>(Func<LiteDatabase, T> action)
+    {
+        
+
+        using var db = new LiteDatabase(_connectionString);
+        return action(db);
     }
 }
