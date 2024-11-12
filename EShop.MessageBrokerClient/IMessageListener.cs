@@ -2,7 +2,7 @@
 
 public interface IMessageListener
 {
-    Task SubscribeAsync(string queue, Func<byte[], Task> messageHandler);
+    Task SubscribeAsync(string queue, Action<string> messageHandler);
 
-    void Unsubscribe(string queue, Func<byte[], Task> messageHandler);
+    void Unsubscribe(string queue, Action<string> messageHandler);
 }

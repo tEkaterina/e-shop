@@ -21,9 +21,9 @@ namespace CartService.DataAccess
                 services.AddSingleton<IDbInstance>(new DbInstance(connectionString));
             }
 
-            services.AddScoped<IDbContext, DbContext>();
-            services.AddScoped<ICartRepository, CartRepository>();
-            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddSingleton<IDbContext, DbContext>();
+            services.AddSingleton<ICartRepository, CartRepository>();
+            services.AddSingleton<IProductRepository, ProductRepository>();
 
             services.AddMessageBroker(config);
 

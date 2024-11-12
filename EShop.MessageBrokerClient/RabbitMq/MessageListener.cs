@@ -1,21 +1,22 @@
 ﻿using RabbitMQ.Client.Events;
+using System.Text;
 
 namespace EShop.MessageBrokerClient.RabbitMq;
 
-record MessageListenerContext(AsyncEventingBasicConsumer Consumer, AsyncEventHandler<BasicDeliverEventArgs> DeliveryHandler, IList<Func<byte[], Task>> Handlers);
+record MessageListenerContext(AsyncEventingBasicConsumer Consumer, AsyncEventHandler<BasicDeliverEventArgs> DeliveryHandler, IList<Action<string>> Handlers);
 
 internal class MessageListener(IMessageBrokerContext context) : IMessageListener
 {
     private readonly Dictionary<string, MessageListenerContext> _queueHandlers = [];
     private readonly ReaderWriterLockSlim _lock = new();
 
-    public async Task SubscribeAsync(string queue, Func<byte[], Task> messageHandler)
+    public async Task SubscribeAsync(string queue, Action<string> messageHandler)
     {
         MessageListenerContext listenerContext = await GetOrCreateMessageContext(queue);
         listenerContext.Handlers.Add(messageHandler);
     }
 
-    public void Unsubscribe(string queue, Func<byte[], Task> messageHandler)
+    public void Unsubscribe(string queue, Action<string> messageHandler)
     {
         MessageListenerContext? listenerContext = GetMessageContext(queue);
         listenerContext?.Handlers.Remove(messageHandler);
@@ -61,15 +62,18 @@ internal class MessageListener(IMessageBrokerContext context) : IMessageListener
             await context.CreateQueueAsync(queue);
 
             var consumer = new AsyncEventingBasicConsumer(context.Channel);
-            var handlers = new List<Func<byte[], Task>>();
+            var handlers = new List<Action<string>>();
 
             AsyncEventHandler<BasicDeliverEventArgs> handler = async (_, package) =>
             {
                 try
                 {
-                    byte[] message = package.Body.ToArray();
+                    string message = Encoding.UTF8.GetString(package.Body.ToArray());
 
-                    await Task.WhenAll(handlers.Select(x => x(message)));
+                    foreach (var handler in handlers)
+                    {
+                        handler(message);
+                    }
 
                     await context.Channel.BasicAckAsync(package.DeliveryTag, multiple: false);
                 }

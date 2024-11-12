@@ -1,5 +1,6 @@
 ﻿namespace CartService.Services.Events.ProductChanged;
 
-internal interface IProductChangePublisher
+internal interface IProductChangePublisher : IDisposable
 {
+    event EventHandler<ProductChangeEventPayload> OnProductChanged;
 }

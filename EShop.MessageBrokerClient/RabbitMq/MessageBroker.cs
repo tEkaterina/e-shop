@@ -9,12 +9,12 @@ internal class MessageBroker(IMessageBrokerContext context, IMessageListener lis
         return context.InitializeAsync(token);
     }
 
-    public Task SubscribeAsync(string queue, Func<byte[], Task> messageHandler)
+    public Task SubscribeAsync(string queue, Action<string> messageHandler)
     {
         return listener.SubscribeAsync(queue, messageHandler);
     }
 
-    public void Unsubscribe(string queue, Func<byte[], Task> messageHandler)
+    public void Unsubscribe(string queue, Action<string> messageHandler)
     {
         listener.Unsubscribe(queue, messageHandler);
     }

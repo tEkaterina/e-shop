@@ -1,5 +1,6 @@
 ﻿using CartService.Services.Cart;
 using CartService.Services.Cart.Mappers;
+using CartService.Services.Events.ProductChanged;
 using CartService.Services.Product;
 using CartService.Services.Product.Mappers;
 
@@ -11,8 +12,11 @@ public static class DependencyInjection
     {
         services.AddTransient<ICartService, Cart.CartService>();
         services.AddTransient<ICartMapper, CartMapper>();
-        services.AddTransient<IProductService, ProductService>();
         services.AddTransient<IProductMapper, ProductMapper>();
+        services.AddTransient<IProductService, ProductService>();
+
+        services.AddHostedService<ProductChangeListener>();
+        services.AddSingleton<IProductChangePublisher, ProductChangePublisher>();
 
         return services;
     }
