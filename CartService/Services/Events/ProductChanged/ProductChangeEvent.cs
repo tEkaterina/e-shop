@@ -1,5 +1,7 @@
 ﻿namespace CartService.Services.Events.ProductChanged;
 
+public record ProductChangeEvent(int ProductId, ProductChangeDetails Details);
+
 public record ProductChangeDetails
 {
     public string Name { get; init; }

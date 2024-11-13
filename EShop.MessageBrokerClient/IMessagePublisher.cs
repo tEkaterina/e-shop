@@ -2,5 +2,5 @@
 
 public interface IMessagePublisher
 {
-    public ValueTask PublishAsync<T>(string queue, T message);
+    Task PublishAsync<T>(string queue, T message);
 }

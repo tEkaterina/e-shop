@@ -1,7 +1,7 @@
 ﻿using CatalogService.Application.Common.Interfaces;
 using CatalogService.Infrastructure.DataAccess;
+using CatalogService.Infrastructure.MessageBroker;
 using EShop.MessageBrokerClient;
-using EShop.MessageBrokerClient.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,6 +23,7 @@ public static class DependencyInjection
 
         services.AddScoped<IApplicationDbContext>(options => options.GetRequiredService<ApplicationDbContext>());
         services.AddScoped<IDbInitializer, DbInitializer>();
+        services.AddScoped<IApplicationMessagePublisher, ApplicationMessagePublisher>();
 
         services.AddMessageBroker(configuration);
 

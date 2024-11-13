@@ -18,7 +18,7 @@ internal class ProductChangeListener(IProductChangePublisher changePublisher, IP
         return Task.CompletedTask;
     }
 
-    private void HandleProductChangeAsync(object? source, ProductChangeEventPayload eventPayload)
+    private void HandleProductChangeAsync(object? source, ProductChangeEvent eventPayload)
     {
         int existingProductId = eventPayload.ProductId;
         ProductEntity? existingProduct = repository.GetProduct(existingProductId);

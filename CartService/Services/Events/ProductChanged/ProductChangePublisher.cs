@@ -5,12 +5,12 @@ namespace CartService.Services.Events.ProductChanged;
 
 internal class ProductChangePublisher(IMessageBroker messageBroker) : IProductChangePublisher
 {
-    private EventHandler<ProductChangeEventPayload>? _handler;
+    private EventHandler<ProductChangeEvent>? _handler;
     private bool _subscribed = false;
     private object _lock = new object();
     private bool _disposed = false;
 
-    public event EventHandler<ProductChangeEventPayload> OnProductChanged
+    public event EventHandler<ProductChangeEvent> OnProductChanged
     {
         add
         {
@@ -50,7 +50,7 @@ internal class ProductChangePublisher(IMessageBroker messageBroker) : IProductCh
 
     private void HandleProductPublish(string message)
     {
-        var payload = JsonSerializer.Deserialize<ProductChangeEventPayload>(message)
+        var payload = JsonSerializer.Deserialize<ProductChangeEvent>(message)
             ?? throw new ProductChangeException("failed to get payload from the received message");
 
         _handler?.Invoke(this, payload);

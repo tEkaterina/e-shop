@@ -19,7 +19,7 @@ internal class MessageBroker(IMessageBrokerContext context, IMessageListener lis
         listener.Unsubscribe(queue, messageHandler);
     }
 
-    public ValueTask PublishAsync<T>(string queue, T messageObject)
+    public Task PublishAsync<T>(string queue, T messageObject)
     {
         return publisher.PublishAsync(queue, messageObject);
     }

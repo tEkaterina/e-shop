@@ -2,5 +2,5 @@
 
 internal interface IProductChangePublisher : IDisposable
 {
-    event EventHandler<ProductChangeEventPayload> OnProductChanged;
+    event EventHandler<ProductChangeEvent> OnProductChanged;
 }

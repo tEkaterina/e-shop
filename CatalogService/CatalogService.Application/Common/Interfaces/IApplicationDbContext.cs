@@ -1,5 +1,4 @@
-﻿using CatalogService.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace CatalogService.Application.Common.Interfaces;
 

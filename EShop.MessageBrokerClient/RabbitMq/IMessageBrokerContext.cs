@@ -1,4 +1,6 @@
-﻿namespace EShop.MessageBrokerClient.RabbitMq;
+﻿using EShop.MessageBrokerClient.Configuration;
+
+namespace EShop.MessageBrokerClient.RabbitMq;
 
 internal interface IMessageBrokerContext : IDisposable, IAsyncDisposable
 {
@@ -6,5 +8,7 @@ internal interface IMessageBrokerContext : IDisposable, IAsyncDisposable
 
     Task InitializeAsync(CancellationToken token = default);
 
-    Task CreateQueueAsync(string queue);
+    Task PublishAsync(string pipelineName, byte[] message);
+
+    Task SubscribeAsync(string pipelineName, IAsyncBasicConsumer consumer);
 }

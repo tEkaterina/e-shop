@@ -8,7 +8,6 @@ record MessageListenerContext(AsyncEventingBasicConsumer Consumer, AsyncEventHan
 internal class MessageListener(IMessageBrokerContext context) : IMessageListener
 {
     private readonly Dictionary<string, MessageListenerContext> _queueHandlers = [];
-    private readonly ReaderWriterLockSlim _lock = new();
 
     public async Task SubscribeAsync(string queue, Action<string> messageHandler)
     {
@@ -26,17 +25,9 @@ internal class MessageListener(IMessageBrokerContext context) : IMessageListener
     {
         MessageListenerContext? messageContext;
 
-        _lock.EnterReadLock();
-        try
+        if (_queueHandlers.TryGetValue(queue, out messageContext))
         {
-            if (_queueHandlers.TryGetValue(queue, out messageContext))
-            {
-                return messageContext;
-            }
-        }
-        finally
-        {
-            _lock.ExitReadLock();
+            return messageContext;
         }
 
         return messageContext;
@@ -50,53 +41,43 @@ internal class MessageListener(IMessageBrokerContext context) : IMessageListener
             return messageContext;
         }
 
-        _lock.EnterWriteLock();
 
-        try
+        if (_queueHandlers.TryGetValue(queue, out messageContext))
         {
-            if (_queueHandlers.TryGetValue(queue, out messageContext))
-            {
-                return messageContext;
-            }
-
-            await context.CreateQueueAsync(queue);
-
-            var consumer = new AsyncEventingBasicConsumer(context.Channel);
-            var handlers = new List<Action<string>>();
-
-            AsyncEventHandler<BasicDeliverEventArgs> handler = async (_, package) =>
-            {
-                try
-                {
-                    string message = Encoding.UTF8.GetString(package.Body.ToArray());
-
-                    foreach (var handler in handlers)
-                    {
-                        handler(message);
-                    }
-
-                    await context.Channel.BasicAckAsync(package.DeliveryTag, multiple: false);
-                }
-                catch (Exception)
-                {
-                    await context.Channel.BasicNackAsync(package.DeliveryTag, multiple: false, requeue: false);
-                    throw;
-                }
-            };
-
-            messageContext = new(consumer, handler, handlers);
-
-            consumer.ReceivedAsync += handler;
-
-            _queueHandlers.Add(queue, messageContext);
-
-            await context.Channel.BasicConsumeAsync(queue, autoAck: false, consumer);
-
             return messageContext;
         }
-        finally
+
+        var consumer = new AsyncEventingBasicConsumer(context.Channel);
+        var handlers = new List<Action<string>>();
+
+        AsyncEventHandler<BasicDeliverEventArgs> handler = async (_, package) =>
         {
-            _lock.ExitWriteLock();
-        }
+            try
+            {
+                string message = Encoding.UTF8.GetString(package.Body.ToArray());
+
+                foreach (var handler in handlers)
+                {
+                    handler(message);
+                }
+
+                await context.Channel.BasicAckAsync(package.DeliveryTag, multiple: false);
+            }
+            catch (Exception)
+            {
+                await context.Channel.BasicNackAsync(package.DeliveryTag, multiple: false, requeue: false);
+                throw;
+            }
+        };
+
+        messageContext = new(consumer, handler, handlers);
+
+        consumer.ReceivedAsync += handler;
+
+        _queueHandlers.Add(queue, messageContext);
+
+        await context.SubscribeAsync(queue, consumer);
+
+        return messageContext;
     }
 }

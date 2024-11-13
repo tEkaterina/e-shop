@@ -9,4 +9,6 @@ public record MessageBrokerConfig
     public int? Port { get; init; }
 
     public required CommonQueueSetup CommonQueueSetup { get; init; }
+
+    public required IReadOnlyCollection<MessagePipelineConfig> Pipelines { get; init; }
 }

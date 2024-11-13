@@ -39,7 +39,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{3485
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{606E0AD0-7768-4F1A-90D1-6F793CC55062}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EShop.MessageBrokerClient", "EShop.MessageBrokerClient\EShop.MessageBrokerClient.csproj", "{1479EDAB-4F86-41D2-A3B0-C10288E3020F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EShop.MessageBrokerClient", "EShop.MessageBrokerClient\EShop.MessageBrokerClient.csproj", "{1479EDAB-4F86-41D2-A3B0-C10288E3020F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
