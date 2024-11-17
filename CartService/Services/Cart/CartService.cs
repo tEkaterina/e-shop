@@ -1,9 +1,9 @@
 ﻿using CartService.DataAccess.Common.Entities;
-using CartService.DataAccess.Repository;
 using CartService.Services.Common.Dto;
-using CartService.Services.Common.Mappers;
 using CartService.Services.Common.Exceptions;
 using CartService.Services.Product;
+using CartService.DataAccess.Repository.Cart;
+using CartService.Services.Cart.Mappers;
 
 namespace CartService.Services.Cart
 {
@@ -19,14 +19,14 @@ namespace CartService.Services.Cart
 
             Guard.Against.NotFound(cartId, cart);
 
-            return await _mapper.ToCartDtoAsync(cart);
+            return _mapper.ToCartDto(cart);
         }
 
         public async Task<CartDto> GetOrCreateAsync(string cartId)
         {
             CartEntity cart = GetOrCreateCartEntity(cartId);
 
-            return await _mapper.ToCartDtoAsync(cart);
+            return _mapper.ToCartDto(cart);
         }
 
         public bool Delete(string cartId)
@@ -40,7 +40,7 @@ namespace CartService.Services.Cart
 
             Guard.Against.NotFound(cartId, cart);
 
-            ProductItemEntity? existingProduct = cart.ProductItems.FirstOrDefault(p => p.Id == productId);
+            AddedProductEntity? existingProduct = cart.Products.FirstOrDefault(p => p.ProductId == productId);
 
             Guard.Against.NotFound(productId, existingProduct);
 
@@ -51,7 +51,7 @@ namespace CartService.Services.Cart
 
             if (!count.HasValue || existingProduct.Count <= 0)
             {
-                cart.ProductItems.Remove(existingProduct);
+                cart.Products.Remove(existingProduct);
             }
 
             _cartRepository.SaveCart(cart);
@@ -62,7 +62,7 @@ namespace CartService.Services.Cart
         public async Task<CartDto> AddProductAsync(string cartId, int productId, int count = 1)
         {
             CartEntity cart = GetOrCreateCartEntity(cartId);
-            var existingProduct = cart.ProductItems.FirstOrDefault(p => p.Id == productId);
+            var existingProduct = cart.Products.FirstOrDefault(p => p.ProductId == productId);
 
             if (existingProduct != null)
             {
@@ -70,12 +70,12 @@ namespace CartService.Services.Cart
             }
             else
             {
-                ProductDto? product = await _productService.GetProductAsync(productId);
+                ProductDto? product = _productService.GetProduct(productId);
 
                 Guard.Against.NotFound(productId, product);
 
                 product.Count = count;
-                cart.ProductItems.Add(_mapper.ToProductItem(product));
+                cart.Products.Add(_mapper.ToAddedProduct(product));
             }
 
             if (!_cartRepository.SaveCart(cart))
@@ -83,7 +83,7 @@ namespace CartService.Services.Cart
                 throw new CartCreateException(cartId);
             }
 
-            return await _mapper.ToCartDtoAsync(cart);
+            return _mapper.ToCartDto(cart);
         }
 
         private CartEntity GetOrCreateCartEntity(string cartId)
@@ -94,7 +94,7 @@ namespace CartService.Services.Cart
                 return cart;
             }
 
-            var newCart = new CartEntity { Id = cartId };
+            var newCart = new CartEntity(cartId);
             if (!_cartRepository.SaveCart(newCart))
             {
                 throw new CartCreateException(cartId);

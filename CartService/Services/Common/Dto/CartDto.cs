@@ -1,9 +1,6 @@
 ﻿namespace CartService.Services.Common.Dto;
 
-public record CartDto
+public record CartDto(string Id)
 {
-    public string Id { get; init; } = Guid.NewGuid().ToString();
-    public string? UserId { get; init; }
-
     public IEnumerable<ProductDto> Products { get; init; } = [];
 }

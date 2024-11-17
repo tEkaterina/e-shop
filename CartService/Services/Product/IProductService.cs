@@ -4,6 +4,8 @@ namespace CartService.Services.Product
 {
     public interface IProductService
     {
-        Task<ProductDto?> GetProductAsync(int productId);
+        ProductDto GetProduct(int productId);
+
+        void CreateOrSaveProduct(ProductDto product);
     }
 }

@@ -1,0 +1,51 @@
+@CartService_HostAddress = http://localhost:5136
+
+# Creates a new cart and add product
+
+POST {{CartService_HostAddress}}/api/carts/cart-1/products
+Accept: application/json
+Content-Type: application/json
+
+{
+  "Id": 1,
+  "name": "Sample Product 1",
+  "price": 500,
+  "description": "A basic product #1"
+}
+
+###
+
+# Adds another product
+
+POST {{CartService_HostAddress}}/api/carts/cart-1/products
+Accept: application/json
+Content-Type: application/json
+
+{
+  "Id": 2,
+  "name": "Sample Product 2",
+  "price": 500,
+  "description": "A basic product #2"
+}
+
+###
+
+POST {{CartService_HostAddress}}/api/carts/cart-1/products
+Accept: application/json
+Content-Type: application/json
+
+{
+  "Id": 3,
+  "name": "Sample Product 3",
+  "price": 500,
+  "description": "A basic product #3"
+}
+
+###
+
+# Returns cart products
+
+GET {{CartService_HostAddress}}/api/carts/cart-1
+x-api-Version: 2.0
+Accept: application/json
+Content-Type: application/json

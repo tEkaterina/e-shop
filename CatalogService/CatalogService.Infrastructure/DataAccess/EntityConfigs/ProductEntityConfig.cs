@@ -7,7 +7,7 @@ namespace CatalogService.Infrastructure.DataAccess.EntityConfigs
     {
         public void Configure(EntityTypeBuilder<Product> builder)
         {
-            
+            builder.ToTable("Products");
         }
     }
 }

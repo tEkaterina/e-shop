@@ -5,7 +5,7 @@ namespace CartService.DataAccess.LiteDb
 {
     public interface IDbContext
     {
-        ILiteDatabase Get();
         T RunOnCarts<T>(Func<ILiteCollection<CartEntity>, T> action);
+        T RunOnProducts<T>(Func<ILiteCollection<ProductEntity>, T> action);
     }
 }

@@ -1,5 +1,6 @@
 using CatalogService.Infrastructure;
 using CatalogService.Infrastructure.DataAccess;
+using EShop.MessageBrokerClient;
 
 namespace CatalogService.Web;
 
@@ -15,6 +16,10 @@ public class Program
         builder.Services.AddControllers();
 
         var app = builder.Build();
+
+        // Initialize
+        var messageBroker = app.Services.GetRequiredService<IMessageBroker>();
+        await messageBroker.InitializeAsync();
 
         // Configure the HTTP request pipeline.
 

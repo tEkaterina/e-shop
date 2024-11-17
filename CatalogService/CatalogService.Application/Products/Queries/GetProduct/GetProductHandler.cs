@@ -2,19 +2,18 @@
 using CatalogService.Application.Products.Queries.Common.Dto;
 using CatalogService.Application.Products.Queries.Common.Mappers;
 
-namespace CatalogService.Application.Products.Queries.GetProduct
+namespace CatalogService.Application.Products.Queries.GetProduct;
+
+public class GetProductHandler(IApplicationDbContext dbContext) : IRequestHandler<GetProductQuery, ProductDto>
 {
-    public class GetProductHandler(IApplicationDbContext dbContext) : IRequestHandler<GetProductQuery, ProductDto>
+    private readonly IApplicationDbContext _dbContext = dbContext;
+
+    public async Task<ProductDto> Handle(GetProductQuery request, CancellationToken cancellationToken)
     {
-        private readonly IApplicationDbContext _dbContext = dbContext;
+        var product = await _dbContext.Products.FindAsync([request.Id], cancellationToken);
 
-        public async Task<ProductDto> Handle(GetProductQuery request, CancellationToken cancellationToken)
-        {
-            var product = await _dbContext.Products.FindAsync([request.Id], cancellationToken);
+        Guard.Against.NotFound(request.Id, product);
 
-            Guard.Against.NotFound(request.Id, product);
-
-            return product.ToProductDto();
-        }
+        return product.ToProductDto();
     }
 }

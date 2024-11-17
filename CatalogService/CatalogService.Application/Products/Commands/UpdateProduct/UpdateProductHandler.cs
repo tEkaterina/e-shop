@@ -1,14 +1,15 @@
 ﻿using CatalogService.Application.Common.Interfaces;
+using CatalogService.Domain.Events;
 
 namespace CatalogService.Application.Products.Commands.UpdateProduct;
 
-public class UpdateProductHandler(IApplicationDbContext dbContext) : IRequestHandler<UpdateProductCommand>
+public class UpdateProductHandler(IApplicationDbContext dbContext, IApplicationMessagePublisher publisher) : IRequestHandler<UpdateProductCommand>
 {
     private readonly IApplicationDbContext _dbContext = dbContext;
 
     public async Task Handle(UpdateProductCommand request, CancellationToken cancellationToken)
     {
-        var product = await this._dbContext.Products.FindAsync([request.Id], cancellationToken);
+        var product = await _dbContext.Products.FindAsync([request.Id], cancellationToken);
 
         Guard.Against.NotFound(request.Id, product);
 
@@ -20,5 +21,13 @@ public class UpdateProductHandler(IApplicationDbContext dbContext) : IRequestHan
         product.Name = request.Name;
 
         await _dbContext.SaveChangesAsync(cancellationToken);
+
+        await publisher.PublishProductUpdateAsync(new ProductChangeEvent(request.Id, new ProductChangeDetails()
+        {
+            Description = request.Description,
+            Image = request.Image,
+            Name = request.Name,
+            Price = request.Price
+        }));
     }
 }

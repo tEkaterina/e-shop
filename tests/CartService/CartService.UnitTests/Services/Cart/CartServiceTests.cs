@@ -1,7 +1,8 @@
-﻿using CartService.DataAccess.Common.Entities;
-using CartService.DataAccess.Repository;
+﻿using Ardalis.GuardClauses;
+using CartService.DataAccess.Common.Entities;
+using CartService.DataAccess.Repository.Cart;
+using CartService.Services.Cart.Mappers;
 using CartService.Services.Common.Dto;
-using CartService.Services.Common.Mappers;
 using CartService.Services.Product;
 using FluentAssertions;
 using Moq;
@@ -22,27 +23,27 @@ namespace CartService.UnitTests.Services.Cart
         }
 
         [Fact]
-        public async Task GetAsync_ReturnsNull_WhenCartDoesNotExist()
+        public async Task GetAsync_ThrowsNotFound_WhenCartDoesNotExist()
         {
             // arrange
             CartEntity? cart = null;
             _repositoryMock.Setup(x => x.GetCart("abc")).Returns(cart);
 
             // act
-            CartDto? result = await _cartService.GetAsync("abc");
-            
+            Func<Task<CartDto>> getCart = () => _cartService.GetAsync("abc");
+
             // assert
-            result.Should().BeNull();
+            await getCart.Should().ThrowAsync<NotFoundException>();
         }
 
         [Fact]
         public async Task GetAsync_ReturnsCartDto_WhenCartExists()
         {
             // arrange
-            CartEntity cart = new();
-            CartDto expectedResult = new();
+            CartEntity cart = new("abc");
+            CartDto expectedResult = new("abc");
             _repositoryMock.Setup(x => x.GetCart("abc")).Returns(cart);
-            _mapperMock.Setup(x => x.ToCartDtoAsync(cart)).ReturnsAsync(expectedResult);
+            _mapperMock.Setup(x => x.ToCartDto(cart)).Returns(expectedResult);
 
             // act
             CartDto? result = await _cartService.GetAsync("abc");
