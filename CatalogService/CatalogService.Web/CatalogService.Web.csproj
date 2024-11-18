@@ -7,14 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Authorization-Set7.http" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="Authorization-Set7.http" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Controllers\" />
   </ItemGroup>
 

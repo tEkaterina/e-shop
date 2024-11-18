@@ -1,4 +1,5 @@
 using CatalogService.Infrastructure;
+using CatalogService.Infrastructure.Authorization;
 using CatalogService.Infrastructure.DataAccess;
 using EShop.MessageBrokerClient;
 
@@ -14,6 +15,7 @@ public class Program
         builder.Services.AddAppServices();
         builder.Services.AddInfrastructureServices(builder.Configuration);
         builder.Services.AddControllers();
+        builder.Services.AddAuthorizationServices(builder.Configuration);
 
         var app = builder.Build();
 
@@ -25,6 +27,7 @@ public class Program
 
         app.UseHttpsRedirection();
 
+        app.UseAuthentication();
         app.UseAuthorization();
 
         app.MapControllers();

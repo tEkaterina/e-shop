@@ -9,5 +9,3 @@ IF %ERRORLEVEL% NEQ 0 (
 ) ELSE (
     echo Container %CONTAINER_NAME% started successfully.
 )
-
-pause;

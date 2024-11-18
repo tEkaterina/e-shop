@@ -1,0 +1,73 @@
+# A set of sample requests covering authorization for part #7
+
+@CatalogService_Web_HostAddress=http://localhost:5164
+@Eshop_Authentication_HostAddress=http://localhost:8080
+@Eshop_Client_Id=eshop-client
+@Eshop_Client_Secret=y4z2aT2B1IrnIidEtvxw99fQaGKwyGU7
+
+@Eshop_Customer_Id=customer1
+@Eshop_Customer_Password=password1
+@Eshop_Customer_Token=eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJNZU95SkluN0E1NmkwTDBpYl9Vb0x3S0luNXN2bTM1aXNQNVh0V0NtS09BIn0.eyJleHAiOjE3MzE5Njg1NTcsImlhdCI6MTczMTk2ODI1NywianRpIjoiZTRjODQ3MWEtZWM1ZS00YmYzLThiYTgtNGE1MjdkNjRiOWI5IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9lc2hvcC1pZGVudGl0eSIsInN1YiI6IjJmZWNmMDFlLTgwZTUtNDU4My1hYTc4LWEyYWEzZmRlM2ZjZSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImVzaG9wLWNsaWVudCIsInNpZCI6IjE1ZjU5MTQxLWE5NDMtNDZiMi05MTdkLTY4MjY3M2YwMTNjNyIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiLyoiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImVzaG9wX2N1c3RvbWVyIl19LCJzY29wZSI6InByb2ZpbGUgZW1haWwiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibmFtZSI6IkphbWVzIEJvbmQiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJjdXN0b21lcjEiLCJnaXZlbl9uYW1lIjoiSmFtZXMiLCJmYW1pbHlfbmFtZSI6IkJvbmQiLCJlbWFpbCI6ImN1c3RvbWVyMUBtYWlsLmNvbSJ9.wh9qaeQBuGwxwaPIyAhUiOOviPDTMFwRMJzMJYpzXZ-Vxsjo6P-6AN9LzWTNo_kEt1jAW7IihV0-IRczrOFHJUb7EXsX7L__z4AcdWkopnVp_pjoZtKH0xuLGIrhuWFCLqG60ODWcQ6JIJA8s2UFbiyHyND0WRm8I6BSNw65ytBdReOy8VAgLHbLSDh8rxsmh6l4LyFK8fqdLzU2Loa6dqv-HUp69BwNmu6wMnW32NVijDF1_4lEFjTxlOVNWjwZpvBp3UQqBFkUOx-mM-qYE715gywIF3cxYEOAobTFJ--rm54xdWNEWFHvLk0WeiznCVUCq_ms9iDmtsAn3BIagg
+@Eshop_Customer_Refresh_Token=ey
+
+@Eshop_Manager_Id=manager1
+@Eshop_Manager_Password=password2
+@Eshop_Manager_Token=eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJNZU95SkluN0E1NmkwTDBpYl9Vb0x3S0luNXN2bTM1aXNQNVh0V0NtS09BIn0.eyJleHAiOjE3MzE5NjczNDYsImlhdCI6MTczMTk2NzA0NiwianRpIjoiNjk5NWUwNmYtMjc0OC00MDZmLThmMzQtMDZlMmI3OTgwZDQ2IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9lc2hvcC1pZGVudGl0eSIsInN1YiI6IjQyM2I1MTZlLTNjMjMtNGFkMC05MTQxLTdkNWQ5MzdiODBiNyIsInR5cCI6IkJlYXJlciIsImF6cCI6ImVzaG9wLWNsaWVudCIsInNpZCI6ImYwZjNhYjU5LTVmNjMtNDJkOC04YzlhLTNhM2NjYmM1NGU3MiIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiLyoiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImVzaG9wX21hbmFnZXIiXX0sInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoiQ2FzYSBOdWdvIiwicHJlZmVycmVkX3VzZXJuYW1lIjoibWFuYWdlcjEiLCJnaXZlbl9uYW1lIjoiQ2FzYSIsImZhbWlseV9uYW1lIjoiTnVnbyIsImVtYWlsIjoibWFuYWdlcjFAbWFpbC5jb20ifQ.avVn6DE4yOU9UZwRUVLuRfryiZHx0UUfN3rrTPc8WcY0yRYqZNf4AHmZIPhZDVPtmIkuRvmEHCE5r_p3b3SvJ4Q2kvNLRUD56uGuh4jQJ_N8PzFoWpGGFlHwmKknZyOQasmsVTP9WT1688f2ou0UAVX2rF_VHIDgf3ibmuuA-D3WlMLUouKrHf12E9DrxgNXxEGYZ34PXoBO747p0U-4ltZCWKgirzUiudMvw5RodpZrwuWJKXnnzd_Biy_GleyDloJq6Co3eF3dMT0C9sngAPxZ7pJ7LItfbc7pM4U9wNgzbFugMByt-RY6vbuhDRN2Wv3SwzVP_wkRxV1SwGBceA
+@Eshop_Manager_Refresh_Token=ey
+
+@Keycloak_Username=admin
+@Keycloak_Password=admin
+@Keycloak_Client_id=admin-cli
+@Keycloak_AccessToken=ey
+
+###
+
+# To retrieve customer token
+
+POST {{Eshop_Authentication_HostAddress}}/realms/eshop-identity/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id={{Eshop_Client_Id}}&client_secret={{Eshop_Client_Secret}}&username={{Eshop_Customer_Id}}&password={{Eshop_Customer_Password}}&grant_type=password
+
+###
+
+# To retrieve manager token
+
+POST {{Eshop_Authentication_HostAddress}}/realms/eshop-identity/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id={{Eshop_Client_Id}}&client_secret={{Eshop_Client_Secret}}&username={{Eshop_Manager_Id}}&password={{Eshop_Manager_Password}}&grant_type=password
+
+###
+
+# To refresh customer token
+
+POST {{Eshop_Authentication_HostAddress}}/realms/eshop-identity/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id={{Eshop_Client_Id}}&client_secret={{Eshop_Client_Secret}}&grant_type=refresh_token&refresh_token={{Eshop_Customer_Refresh_Token}}
+
+###
+
+# To refresh manager token
+
+POST {{Eshop_Authentication_HostAddress}}/realms/eshop-identity/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id={{Eshop_Client_Id}}&client_secret={{Eshop_Client_Secret}}&grant_type=refresh_token&refresh_token={{Eshop_Manager_Refresh_Token}}
+
+###
+
+# To troubleshoot keycloak
+
+POST {{Eshop_Authentication_HostAddress}}/realms/master/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id={{Keycloak_Client_id}}&username={{Keycloak_Username}}&password={{Keycloak_Password}}&grant_type=password
+
+###
+
+GET {{Eshop_Authentication_HostAddress}}/admin/realms
+Authorization: Bearer {{Keycloak_AccessToken}}
+
+###
