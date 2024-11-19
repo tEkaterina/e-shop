@@ -1,0 +1,186 @@
+{
+	"info": {
+		"_postman_id": "3391ab06-7060-438b-a7aa-4002be2499f8",
+		"name": "Cart service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39829502"
+	},
+	"item": [
+		{
+			"name": "Create cart with product 1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Id\": 1,\r\n    \"name\": \"Sample Product 1\",\r\n    \"price\": 500,\r\n    \"description\": \"A basic product #1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5136/api/carts/cart-1/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5136",
+					"path": [
+						"api",
+						"carts",
+						"cart-1",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create cart with product 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Id\": 2,\r\n    \"name\": \"Sample Product 2\",\r\n    \"price\": 780,\r\n    \"description\": \"A rare product #2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5136/api/carts/cart-1/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5136",
+					"path": [
+						"api",
+						"carts",
+						"cart-1",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create cart with product 3",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"Id\": 3,\r\n  \"name\": \"Luxury Product 3\",\r\n  \"price\": 11234500,\r\n  \"description\": \"A very expencieve product #3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5136/api/carts/cart-1/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5136",
+					"path": [
+						"api",
+						"carts",
+						"cart-1",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get cart - cart-1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5136/api/carts/cart-1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5136",
+					"path": [
+						"api",
+						"carts",
+						"cart-1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete cart - cart-1",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"Id\": 1,\r\n  \"name\": \"Sample Product 1\",\r\n  \"price\": 500,\r\n  \"description\": \"A basic product #1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5136/api/carts/cart-1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5136",
+					"path": [
+						"api",
+						"carts",
+						"cart-1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJvaVdqdlRUQm13MkREQkNMUDNwU1B0RTJucmdJQy1JM0lCOU15cEowSmVFIn0.eyJleHAiOjE3MzIwNTMyNTYsImlhdCI6MTczMjA1Mjk1NiwianRpIjoiMTBiNzdmYmQtNDU4MC00YWVkLTkzMTYtMGM5Y2NkNzRlZDk3IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9lc2hvcC1pZGVudGl0eSIsInN1YiI6IjAwZTQ2NTI2LWViMzQtNDJhMy04NWQwLTU2NDJkNDFlMjM5OSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImVzaG9wLWNsaWVudCIsInNpZCI6IjMxYmIxOWU5LWU1ZjItNGQzMC1hNWFlLTE2OWI2ZDYxNjc2ZiIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiLyoiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbImVzaG9wX21hbmFnZXIiXX0sInNjb3BlIjoiZW1haWwgcHJvZmlsZSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoiQ2FzYSBOdWdvIiwicHJlZmVycmVkX3VzZXJuYW1lIjoibWFuYWdlcjEiLCJnaXZlbl9uYW1lIjoiQ2FzYSIsImZhbWlseV9uYW1lIjoiTnVnbyIsImVtYWlsIjoibWFuYWdlcjFAbWFpbC5jb20ifQ.X5yOR9pnIQ2IhYlNXQMpcPY8v6NyXuPIiW8jRCa7kyXs4RJcLHf7ZtF4fxoONCyMTk3lHUNfY-MDHbKLt7EamzoMDfDPcNUP7LXtDz3jbZ7w15jE3YOTKmf17MxWEYA8lsNmZo3ICAXI_kru61Zh-2mvSLLGXsRgwvToIDA7d1NhTJ0q7hECt8sXNom24Ung4TFzJct0K2FyGY2ggxsBHoRA9ZXbvpbVQJO3q5SKSJ7sGoaNzEgqS_AykrGehOySx9kyhRs_3hBsDtySRe7QvTFTU62FtiwR7v501FOHunMNOQSFEEV0aKxxN5_UUDZHdNo-LWmzqtEFXKY4Tm5fSg",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
