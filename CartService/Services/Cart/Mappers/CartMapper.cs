@@ -1,6 +1,6 @@
-﻿using CartService.Services.Product;
+﻿using CartService.DataAccess.Common.Entities;
 using CartService.Services.Common.Dto;
-using CartService.DataAccess.Common.Entities;
+using CartService.Services.Product;
 
 namespace CartService.Services.Cart.Mappers;
 

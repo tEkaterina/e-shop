@@ -60,7 +60,7 @@ internal class MessageBroker(IMessageBrokerContext context, IMessageListener lis
             return;
         }
 
-        await context.DisposeAsync();
+        await context.DisposeAsync().ConfigureAwait(false);
     }
 
 

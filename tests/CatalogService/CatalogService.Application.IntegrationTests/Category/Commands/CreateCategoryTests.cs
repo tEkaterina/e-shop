@@ -1,4 +1,5 @@
 ﻿using CatalogService.Application.Categories.Commands.CreateCategory;
+
 using FluentAssertions;
 
 namespace CatalogService.Application.IntegrationTests.Category.Commands
@@ -17,7 +18,7 @@ namespace CatalogService.Application.IntegrationTests.Category.Commands
             };
 
             // act
-            var newId = await _fixture.ExecuteCommand(createCategoryCommand);
+            var newId = await _fixture.ExecuteCommand(createCategoryCommand).ConfigureAwait(true);
 
             // assert
             newId.Should().BeGreaterThan(0);

@@ -6,6 +6,6 @@ public class DbInitializer(ApplicationDbContext context) : IDbInitializer
 {
     public async Task InitializeAsync()
     {
-        await context.Database.MigrateAsync();
+        await context.Database.MigrateAsync().ConfigureAwait(false);
     }
 }

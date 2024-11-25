@@ -1,9 +1,9 @@
 ﻿using CartService.DataAccess.Common.Entities;
+using CartService.DataAccess.Repository.Cart;
+using CartService.Services.Cart.Mappers;
 using CartService.Services.Common.Dto;
 using CartService.Services.Common.Exceptions;
 using CartService.Services.Product;
-using CartService.DataAccess.Repository.Cart;
-using CartService.Services.Cart.Mappers;
 
 namespace CartService.Services.Cart
 {
@@ -13,7 +13,7 @@ namespace CartService.Services.Cart
         private readonly ICartRepository _cartRepository = cartRepository;
         private readonly IProductService _productService = productService;
 
-        public async Task<CartDto> GetAsync(string cartId)
+        public CartDto Get(string cartId)
         {
             CartEntity? cart = _cartRepository.GetCart(cartId);
 
@@ -22,7 +22,7 @@ namespace CartService.Services.Cart
             return _mapper.ToCartDto(cart);
         }
 
-        public async Task<CartDto> GetOrCreateAsync(string cartId)
+        public CartDto GetOrCreate(string cartId)
         {
             CartEntity cart = GetOrCreateCartEntity(cartId);
 
@@ -59,7 +59,7 @@ namespace CartService.Services.Cart
             return true;
         }
 
-        public async Task<CartDto> AddProductAsync(string cartId, int productId, int count = 1)
+        public CartDto AddProduct(string cartId, int productId, int count = 1)
         {
             CartEntity cart = GetOrCreateCartEntity(cartId);
             var existingProduct = cart.Products.FirstOrDefault(p => p.ProductId == productId);

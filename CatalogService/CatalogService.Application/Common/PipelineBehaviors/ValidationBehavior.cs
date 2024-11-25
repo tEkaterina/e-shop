@@ -11,10 +11,10 @@ namespace CatalogService.Application.Common.PipelineBehaviors
         {
             if (!_validators.Any())
             {
-                return await next();
+                return await next().ConfigureAwait(false);
             }
 
-            var results = await Task.WhenAll(_validators.Select(x => x.ValidateAsync(request, cancellationToken)));
+            var results = await Task.WhenAll(_validators.Select(x => x.ValidateAsync(request, cancellationToken))).ConfigureAwait(false);
 
             var errors = results.Where(x => !x.IsValid).SelectMany(x => x.Errors).ToArray();
 
@@ -23,7 +23,7 @@ namespace CatalogService.Application.Common.PipelineBehaviors
                 throw new ValidationException(errors);
             }
 
-            return await next();
+            return await next().ConfigureAwait(false);
         }
     }
 }

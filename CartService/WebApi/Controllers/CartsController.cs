@@ -1,6 +1,7 @@
 ﻿using CartService.Services.Cart;
 using CartService.Services.Common.Dto;
 using CartService.Services.Product;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,11 +28,11 @@ public class CartsController(ICartService _cartService, IProductService _product
     [ApiVersion("2.0")]
     [MapToApiVersion("2.0")]
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetCartProducts(string id)
+    public IActionResult GetCartProducts(string id)
     {
         try
         {
-            CartDto cart = await _cartService.GetAsync(id);
+            CartDto cart = _cartService.Get(id);
             return Ok(cart.Products);
         }
         catch (NotFoundException)
@@ -50,11 +51,11 @@ public class CartsController(ICartService _cartService, IProductService _product
     [ApiVersion("1.0")]
     [MapToApiVersion("1.0")]
     [HttpGet("{id}")]
-    public async Task<IActionResult> Get(string id)
+    public IActionResult Get(string id)
     {
         try
         {
-            CartDto cart = await _cartService.GetAsync(id);
+            CartDto cart = _cartService.Get(id);
             return Ok(cart);
         }
         catch (NotFoundException)
@@ -70,9 +71,9 @@ public class CartsController(ICartService _cartService, IProductService _product
     /// <returns>Details of the created cart</returns>
     /// <response code="200">Cart was added</response>
     [HttpPost]
-    public async Task<IActionResult> Post([FromBody] CreateCartRequest request)
+    public IActionResult Post([FromBody] CreateCartRequest request)
     {
-        CartDto cart = await _cartService.GetOrCreateAsync(request.Id);
+        CartDto cart = _cartService.GetOrCreate(request.Id);
 
         return Ok(cart);
     }
@@ -109,11 +110,11 @@ public class CartsController(ICartService _cartService, IProductService _product
     /// <response code="200">A list of products fetched</response>
     /// <response code="404">The provided cart does not exist</response>
     [HttpGet("{cartId}/products")]
-    public async Task<IActionResult> GetProducts(string cartId)
+    public IActionResult GetProducts(string cartId)
     {
         try
         {
-            CartDto cart = await _cartService.GetAsync(cartId);
+            CartDto cart = _cartService.Get(cartId);
             return Ok(cart.Products);
         }
         catch (NotFoundException)
@@ -131,12 +132,12 @@ public class CartsController(ICartService _cartService, IProductService _product
     /// <response code="200">A product was added</response>
     /// <response code="404">The provided cart does not exist</response>
     [HttpPost("{cartId}/products")]
-    public async Task<IActionResult> AddProduct(string cartId, [FromBody] ProductDto request)
+    public IActionResult AddProduct(string cartId, [FromBody] ProductDto request)
     {
         try
         {
             _productService.CreateOrSaveProduct(request);
-            CartDto cart = await _cartService.AddProductAsync(cartId, request.Id, request.Count);
+            CartDto cart = _cartService.AddProduct(cartId, request.Id, request.Count);
             return Ok(cart.Products);
         }
         catch (NotFoundException)

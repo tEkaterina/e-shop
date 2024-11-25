@@ -4,7 +4,9 @@ using CatalogService.Application.Categories.Commands.UpdateCategory;
 using CatalogService.Application.Categories.Queries.Common.Dto;
 using CatalogService.Application.Categories.Queries.GetCategories;
 using CatalogService.Application.Categories.Queries.GetCategory;
+
 using MediatR;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,7 +31,7 @@ namespace CatalogService.Web.Controllers
                 return Results.BadRequest();
             }
 
-            return Results.Ok(await sender.Send(query));
+            return Results.Ok(await sender.Send(query).ConfigureAwait(false));
         }
 
         [HttpPost]
@@ -48,7 +50,7 @@ namespace CatalogService.Web.Controllers
                 return Results.BadRequest();
             }
 
-            await sender.Send(command);
+            await sender.Send(command).ConfigureAwait(false);
 
             return Results.NoContent();
         }
@@ -62,7 +64,7 @@ namespace CatalogService.Web.Controllers
                 return Results.BadRequest();
             }
 
-            await sender.Send(command);
+            await sender.Send(command).ConfigureAwait(false);
 
             return Results.NoContent();
         }

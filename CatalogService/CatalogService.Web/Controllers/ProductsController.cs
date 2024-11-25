@@ -4,7 +4,9 @@ using CatalogService.Application.Products.Commands.DeleteProduct;
 using CatalogService.Application.Products.Commands.UpdateProduct;
 using CatalogService.Application.Products.Queries.Common.Dto;
 using CatalogService.Application.Products.Queries.GetProducts;
+
 using MediatR;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -43,7 +45,7 @@ namespace CatalogService.Web.Controllers
                 return Results.BadRequest();
             }
 
-            await sender.Send(command);
+            await sender.Send(command).ConfigureAwait(false);
 
             return Results.NoContent();
         }
@@ -57,7 +59,7 @@ namespace CatalogService.Web.Controllers
                 return Results.BadRequest();
             }
 
-            await sender.Send(command);
+            await sender.Send(command).ConfigureAwait(false);
 
             return Results.NoContent();
         }

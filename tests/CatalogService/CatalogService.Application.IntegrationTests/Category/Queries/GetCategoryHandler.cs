@@ -1,6 +1,8 @@
 ﻿using Ardalis.GuardClauses;
+
 using CatalogService.Application.Categories.Commands.CreateCategory;
 using CatalogService.Application.Categories.Queries.GetCategory;
+
 using FluentAssertions;
 
 namespace CatalogService.Application.IntegrationTests.Category.Queries;
@@ -16,12 +18,12 @@ public class GetCategoryHandler(IntegrationTestFixture _fixture) : IClassFixture
             Name = "test_category"
         };
 
-        var newId = await _fixture.ExecuteCommand(createCategoryCommand);
+        var newId = await _fixture.ExecuteCommand(createCategoryCommand).ConfigureAwait(true);
 
         var getCategoryQuery = new GetCategoryQuery(newId);
 
         // Act
-        var categoryDto = await _fixture.ExecuteCommand(getCategoryQuery);
+        var categoryDto = await _fixture.ExecuteCommand(getCategoryQuery).ConfigureAwait(true);
 
         // Assert
         categoryDto.Should().NotBeNull();
@@ -36,9 +38,9 @@ public class GetCategoryHandler(IntegrationTestFixture _fixture) : IClassFixture
         var getCategoryQuery = new GetCategoryQuery(999);
 
         // Act
-        Func<Task> act = async () => await _fixture.ExecuteCommand(getCategoryQuery);
+        Func<Task> act = async () => await _fixture.ExecuteCommand(getCategoryQuery).ConfigureAwait(true);
 
         // Assert
-        await act.Should().ThrowAsync<NotFoundException>();
+        await act.Should().ThrowAsync<NotFoundException>().ConfigureAwait(true);
     }
 }

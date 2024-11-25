@@ -1,7 +1,9 @@
 ﻿using CatalogService.Application.Common.Interfaces;
 using CatalogService.Infrastructure.DataAccess;
 using CatalogService.Infrastructure.MessageBroker;
+
 using EShop.MessageBrokerClient;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

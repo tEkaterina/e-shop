@@ -1,0 +1,6 @@
+projectKey=eshop
+serverUrl=http://localhost:9000
+serverVersion=10.7.0.96327
+dashboardUrl=http://localhost:9000/dashboard?id=eshop
+ceTaskId=b12b419c-b016-4a6f-9051-4f139a1f14fa
+ceTaskUrl=http://localhost:9000/api/ce/task?id=b12b419c-b016-4a6f-9051-4f139a1f14fa

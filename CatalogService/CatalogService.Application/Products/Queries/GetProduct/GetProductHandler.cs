@@ -10,7 +10,7 @@ public class GetProductHandler(IApplicationDbContext dbContext) : IRequestHandle
 
     public async Task<ProductDto> Handle(GetProductQuery request, CancellationToken cancellationToken)
     {
-        var product = await _dbContext.Products.FindAsync([request.Id], cancellationToken);
+        var product = await _dbContext.Products.FindAsync([request.Id], cancellationToken).ConfigureAwait(false);
 
         Guard.Against.NotFound(request.Id, product);
 

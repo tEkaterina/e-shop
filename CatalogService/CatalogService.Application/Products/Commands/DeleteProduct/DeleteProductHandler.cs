@@ -8,13 +8,13 @@ namespace CatalogService.Application.Products.Commands.DeleteProduct
 
         public async Task Handle(DeleteProductCommand request, CancellationToken cancellationToken)
         {
-            var product = await _dbContext.Products.FindAsync([request.Id], cancellationToken);
+            var product = await _dbContext.Products.FindAsync([request.Id], cancellationToken).ConfigureAwait(false);
 
             Guard.Against.NotFound(request.Id, product);
 
             _dbContext.Products.Remove(product);
 
-            await _dbContext.SaveChangesAsync(cancellationToken);
+            await _dbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
         }
     }
 }

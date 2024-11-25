@@ -2,4 +2,4 @@
 
 namespace CatalogService.Application.Categories.Queries.GetCategory;
 
-public record GetCategoryQuery(int Id): IRequest<CategoryDto>;
+public record GetCategoryQuery(int Id) : IRequest<CategoryDto>;

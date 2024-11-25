@@ -1,5 +1,6 @@
-﻿using System.Text.Json;
-using System.Text;
+﻿using System.Text;
+using System.Text.Json;
+
 using EShop.MessageBrokerClient.Configuration;
 
 namespace EShop.MessageBrokerClient.RabbitMq;
@@ -11,6 +12,6 @@ internal class MessagePublisher(IMessageBrokerContext context) : IMessagePublish
         var message = JsonSerializer.Serialize(messageObject);
         var messagePackage = Encoding.UTF8.GetBytes(message);
 
-        await context.PublishAsync(queue, messagePackage);
+        await context.PublishAsync(queue, messagePackage).ConfigureAwait(false);
     }
 }

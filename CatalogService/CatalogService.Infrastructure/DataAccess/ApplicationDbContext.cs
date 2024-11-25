@@ -1,6 +1,8 @@
-﻿using CatalogService.Application.Common.Interfaces;
+﻿using System.Reflection;
+
+using CatalogService.Application.Common.Interfaces;
+
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
 
 namespace CatalogService.Infrastructure.DataAccess
 {

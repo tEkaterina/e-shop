@@ -1,5 +1,6 @@
 ﻿using EShop.MessageBrokerClient.Configuration;
 using EShop.MessageBrokerClient.RabbitMq;
+
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

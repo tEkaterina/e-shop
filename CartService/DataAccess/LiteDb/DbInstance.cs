@@ -1,4 +1,5 @@
 ﻿using CartService.DataAccess.Common.Exceptions;
+
 using LiteDB;
 
 namespace CartService.DataAccess.LiteDb;
@@ -19,7 +20,7 @@ internal class DbInstance : IDbInstance
 
     public T Execute<T>(Func<LiteDatabase, T> action)
     {
-        
+
 
         using var db = new LiteDatabase(_connectionString);
         return action(db);

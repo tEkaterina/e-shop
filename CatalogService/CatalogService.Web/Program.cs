@@ -1,6 +1,7 @@
 using CatalogService.Infrastructure;
 using CatalogService.Infrastructure.Authorization;
 using CatalogService.Infrastructure.DataAccess;
+
 using EShop.MessageBrokerClient;
 
 namespace CatalogService.Web;
@@ -21,7 +22,7 @@ public class Program
 
         // Initialize
         var messageBroker = app.Services.GetRequiredService<IMessageBroker>();
-        await messageBroker.InitializeAsync();
+        await messageBroker.InitializeAsync().ConfigureAwait(false);
 
         // Configure the HTTP request pipeline.
 
@@ -35,7 +36,7 @@ public class Program
         using (var scope = app.Services.CreateScope())
         {
             var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
-            await dbInitializer.InitializeAsync();
+            await dbInitializer.InitializeAsync().ConfigureAwait(false);
         }
 
         app.Run();

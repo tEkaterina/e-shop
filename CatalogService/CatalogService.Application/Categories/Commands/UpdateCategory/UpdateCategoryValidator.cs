@@ -1,4 +1,5 @@
 ﻿using CatalogService.Application.Common.Extensions.Validators;
+
 using FluentValidation;
 
 namespace CatalogService.Application.Categories.Commands.UpdateCategory;

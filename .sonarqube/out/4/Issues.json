@@ -1,0 +1,218 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Microsoft (R) Visual C# Compiler",
+        "version": "4.11.0.0",
+        "fileVersion": "4.11.0-3.24510.3 (cfe3bd0a)",
+        "semanticVersion": "4.11.0",
+        "language": "en-US"
+      },
+      "results": [
+        {
+          "ruleId": "S2223",
+          "level": "warning",
+          "message": "Change the visibility of 'ProductSyncQueue' or make it 'const' or 'readonly'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///E:/repos/e-shop/CatalogService/CatalogService.Infrastructure/MessageBroker/MessageBrokerConst.cs",
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 28,
+                  "endLine": 5,
+                  "endColumn": 44
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "S1192",
+          "level": "warning",
+          "message": "Define a constant instead of using this literal 'Categories' 5 times.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///E:/repos/e-shop/CatalogService/CatalogService.Infrastructure/Migrations/20241008221051_InitialCreate.cs",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 23,
+                  "endLine": 14,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///E:/repos/e-shop/CatalogService/CatalogService.Infrastructure/Migrations/20241008221051_InitialCreate.cs",
+                "region": {
+                  "startLine": 29,
+                  "startColumn": 41,
+                  "endLine": 29,
+                  "endColumn": 53
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///E:/repos/e-shop/CatalogService/CatalogService.Infrastructure/Migrations/20241008221051_InitialCreate.cs",
+                "region": {
+                  "startLine": 52,
+                  "startColumn": 41,
+                  "endLine": 52,
+                  "endColumn": 53
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///E:/repos/e-shop/CatalogService/CatalogService.Infrastructure/Migrations/20241008221051_InitialCreate.cs",
+                "region": {
+                  "startLine": 59,
+                  "startColumn": 24,
+                  "endLine": 59,
+                  "endColumn": 36
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///E:/repos/e-shop/CatalogService/CatalogService.Infrastructure/Migrations/20241008221051_InitialCreate.cs",
+                "region": {
+                  "startLine": 75,
+                  "startColumn": 23,
+                  "endLine": 75,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": null,
+              "1": null,
+              "2": null,
+              "3": null
+            }
+          }
+        },
+        {
+          "ruleId": "S1192",
+          "level": "warning",
+          "message": "Define a constant instead of using this literal 'INTEGER' 5 times.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///E:/repos/e-shop/CatalogService/CatalogService.Infrastructure/Migrations/20241008221051_InitialCreate.cs",
+                "region": {
+                  "startLine": 17,
+                  "startColumn": 50,
+                  "endLine": 17,
+                  "endColumn": 59
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///E:/repos/e-shop/CatalogService/CatalogService.Infrastructure/Migrations/20241008221051_InitialCreate.cs",
+                "region": {
+                  "startLine": 21,
+                  "startColumn": 64,
+                  "endLine": 21,
+                  "endColumn": 73
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///E:/repos/e-shop/CatalogService/CatalogService.Infrastructure/Migrations/20241008221051_InitialCreate.cs",
+                "region": {
+                  "startLine": 37,
+                  "startColumn": 50,
+                  "endLine": 37,
+                  "endColumn": 59
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///E:/repos/e-shop/CatalogService/CatalogService.Infrastructure/Migrations/20241008221051_InitialCreate.cs",
+                "region": {
+                  "startLine": 43,
+                  "startColumn": 54,
+                  "endLine": 43,
+                  "endColumn": 63
+                }
+              }
+            },
+            {
+              "physicalLocation": {
+                "uri": "file:///E:/repos/e-shop/CatalogService/CatalogService.Infrastructure/Migrations/20241008221051_InitialCreate.cs",
+                "region": {
+                  "startLine": 44,
+                  "startColumn": 58,
+                  "endLine": 44,
+                  "endColumn": 67
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "0": null,
+              "1": null,
+              "2": null,
+              "3": null
+            }
+          }
+        }
+      ],
+      "rules": {
+        "S1192": {
+          "id": "S1192",
+          "shortDescription": "String literals should not be duplicated",
+          "fullDescription": "Duplicated string literals make the process of refactoring complex and error-prone, as any change would need to be propagated on all occurrences.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-1192",
+          "properties": {
+            "category": "Minor Code Smell",
+            "isEnabledByDefault": false,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "SonarWay"
+            ]
+          }
+        },
+        "S2223": {
+          "id": "S2223",
+          "shortDescription": "Non-constant static fields should not be visible",
+          "fullDescription": "Unlike instance fields, which can only be accessed by code having a hold on the instance, static fields can be accessed by any code having visibility of the field and its type.",
+          "defaultLevel": "warning",
+          "helpUri": "https://rules.sonarsource.com/csharp/RSPEC-2223",
+          "properties": {
+            "category": "Critical Code Smell",
+            "isEnabledByDefault": true,
+            "tags": [
+              "C#",
+              "MainSourceScope",
+              "SonarWay"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

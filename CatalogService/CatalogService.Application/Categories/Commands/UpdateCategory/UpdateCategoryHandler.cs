@@ -8,7 +8,7 @@ public class UpdateCategoryHandler(IApplicationDbContext dbContext) : IRequestHa
 
     public async Task Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
     {
-        var category = await _dbContext.Categories.FindAsync([request.Id], cancellationToken);
+        var category = await _dbContext.Categories.FindAsync([request.Id], cancellationToken).ConfigureAwait(false);
 
         Guard.Against.NotFound(request.Id, category);
 
@@ -16,6 +16,6 @@ public class UpdateCategoryHandler(IApplicationDbContext dbContext) : IRequestHa
         category.Name = request.Name;
         category.ParentCategoryId = request.ParentCategoryId;
 
-        await _dbContext.SaveChangesAsync(cancellationToken);
+        await _dbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
 }

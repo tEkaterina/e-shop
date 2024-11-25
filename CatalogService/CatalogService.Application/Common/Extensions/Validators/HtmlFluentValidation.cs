@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+
 using Ganss.Xss;
 
 namespace CatalogService.Application.Common.Extensions.Validators
@@ -16,7 +17,7 @@ namespace CatalogService.Application.Common.Extensions.Validators
                 return true;
 
             var sanitizer = new HtmlSanitizer();
-            string sanitized = sanitizer.Sanitize(htmlContent);
+            var sanitized = sanitizer.Sanitize(htmlContent);
 
             return sanitized == htmlContent;
         }
