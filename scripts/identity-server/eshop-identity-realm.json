@@ -1,0 +1,93 @@
+{
+    "id": "eshop-identity",
+    "realm": "eshop-identity",
+    "enabled": true,
+    "roles": {
+        "realm": [
+            {
+                "name": "eshop_customer"
+            },
+            {
+                "name": "eshop_manager"
+            }
+        ]
+    },
+    "users": [
+        {
+            "username": "customer1",
+            "enabled": true,
+            "emailVerified": true,
+            "firstName": "James",
+            "lastName": "Bond",
+            "email": "customer1@mail.com",
+            "credentials": [
+                {
+                    "type": "password",
+                    "value": "password1",
+                    "temporary": false
+                }
+            ],
+            "realmRoles": ["eshop_customer"]
+        },
+        {
+            "username": "manager1",
+            "enabled": true,
+            "emailVerified": true,
+            "firstName": "Casa",
+            "lastName": "Nugo",
+            "email": "manager1@mail.com",
+            "credentials": [
+                {
+                    "type": "password",
+                    "value": "password2",
+                    "temporary": false
+                }
+            ],
+            "realmRoles": ["eshop_manager"]
+        }
+    ],
+    "clients": [
+        {
+            "id": "be4313d0-6ce5-498f-aab5-0e6a170f6316",
+            "clientId": "eshop-client",
+            "name": "eshop-client",
+            "description": "",
+            "rootUrl": "",
+            "adminUrl": "",
+            "baseUrl": "",
+            "surrogateAuthRequired": false,
+            "enabled": true,
+            "alwaysDisplayInConsole": true,
+            "clientAuthenticatorType": "client-secret",
+            "secret": "y4z2aT2B1IrnIidEtvxw99fQaGKwyGU7",
+            "redirectUris": ["/*"],
+            "webOrigins": ["/*"],
+            "notBefore": 0,
+            "bearerOnly": false,
+            "consentRequired": false,
+            "standardFlowEnabled": true,
+            "implicitFlowEnabled": false,
+            "directAccessGrantsEnabled": true,
+            "serviceAccountsEnabled": false,
+            "publicClient": false,
+            "frontchannelLogout": true,
+            "protocol": "openid-connect",
+            "attributes": {
+                "realm_client": "false",
+                "oidc.ciba.grant.enabled": "false",
+                "client.secret.creation.time": "1731863284",
+                "backchannel.logout.session.required": "true",
+                "post.logout.redirect.uris": "+",
+                "oauth2.device.authorization.grant.enabled": "false",
+                "display.on.consent.screen": "false",
+                "use.jwks.url": "false",
+                "backchannel.logout.revoke.offline.tokens": "false"
+            },
+            "authenticationFlowBindingOverrides": {},
+            "fullScopeAllowed": true,
+            "nodeReRegistrationTimeout": -1,
+            "defaultClientScopes": ["web-origins", "acr", "profile", "roles", "basic", "email"],
+            "optionalClientScopes": ["address", "phone", "offline_access", "organization", "microprofile-jwt"]
+        }
+    ]
+}

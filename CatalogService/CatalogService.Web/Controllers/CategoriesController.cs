@@ -5,12 +5,14 @@ using CatalogService.Application.Categories.Queries.Common.Dto;
 using CatalogService.Application.Categories.Queries.GetCategories;
 using CatalogService.Application.Categories.Queries.GetCategory;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CatalogService.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CategoriesController : ControllerBase
     {
         [HttpGet]
@@ -31,12 +33,14 @@ namespace CatalogService.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "Manager")]
         public Task<int> Create([FromServices] ISender sender, [FromBody] CreateCategoryCommand command)
         {
             return sender.Send(command);
         }
 
         [HttpPut("{id}")]
+        [Authorize(Policy = "Manager")]
         public async Task<IResult> Update([FromServices] ISender sender, int id, [FromBody] UpdateCategoryCommand command)
         {
             if (id != command.Id)
@@ -50,6 +54,7 @@ namespace CatalogService.Web.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Policy = "Manager")]
         public async Task<IResult> Delete([FromServices] ISender sender, int id, [FromRoute] DeleteCategoryCommand command)
         {
             if (id != command.Id)

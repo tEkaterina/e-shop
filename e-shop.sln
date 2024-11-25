@@ -41,6 +41,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{606E0A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EShop.MessageBrokerClient", "EShop.MessageBrokerClient\EShop.MessageBrokerClient.csproj", "{1479EDAB-4F86-41D2-A3B0-C10288E3020F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "identity-server", "identity-server", "{541D5144-59A2-49FA-8A7F-86AD35D27DFA}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\identity-server\Dockerfile = scripts\identity-server\Dockerfile
+		scripts\identity-server\eshop-identity-realm.json = scripts\identity-server\eshop-identity-realm.json
+		scripts\identity-server\recreate-identity-server.bat = scripts\identity-server\recreate-identity-server.bat
+		scripts\identity-server\run-identity-server.bat = scripts\identity-server\run-identity-server.bat
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -108,6 +116,7 @@ Global
 		{559A6B5A-2515-4C87-889E-4E6CEB355A26} = {03CB3494-0887-4D0E-8A81-AB5E0A58DBDB}
 		{00AA0F8F-49E5-4854-8013-389B8319D995} = {03CB3494-0887-4D0E-8A81-AB5E0A58DBDB}
 		{1479EDAB-4F86-41D2-A3B0-C10288E3020F} = {606E0AD0-7768-4F1A-90D1-6F793CC55062}
+		{541D5144-59A2-49FA-8A7F-86AD35D27DFA} = {34859C96-61DB-440A-B2D0-F5D02D4C545E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C1AC9212-F4B9-44DE-80DC-A453F5F7BF3F}

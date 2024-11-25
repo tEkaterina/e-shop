@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using CartService.WebApi;
 using EShop.MessageBrokerClient;
+using CartService.Services.Authorization;
 
 public class Program
 {
@@ -15,7 +16,7 @@ public class Program
 
         builder.Services.AddControllers();
         builder.Services.AddDataAccessServices(builder.Configuration, builder.Environment);
-        builder.Services.AddApplicationServices();
+        builder.Services.AddApplicationServices(builder.Configuration);
 
         builder.Services.AddApiVersioning(options =>
         {
@@ -39,9 +40,12 @@ public class Program
 
         app.UseHttpsRedirection();
 
+        app.UseAuthentication();
         app.UseAuthorization();
 
         app.MapControllers();
+
+        app.UseMiddleware<LogUserMiddleware>();
 
         app.Run();
     }

@@ -1,0 +1,116 @@
+{
+	"info": {
+		"_postman_id": "fd18b17e-0da1-4be1-aa9a-b9789f0c35a0",
+		"name": "Authentication",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39829502"
+	},
+	"item": [
+		{
+			"name": "Get Access Token - customer 1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_secret",
+							"value": "y4z2aT2B1IrnIidEtvxw99fQaGKwyGU7",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "eshop-client",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "customer1",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "password1",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/realms/eshop-identity/protocol/openid-connect/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"realms",
+						"eshop-identity",
+						"protocol",
+						"openid-connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Access Token - manager 1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_secret",
+							"value": "y4z2aT2B1IrnIidEtvxw99fQaGKwyGU7",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "eshop-client",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "manager1",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "password2",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/realms/eshop-identity/protocol/openid-connect/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"realms",
+						"eshop-identity",
+						"protocol",
+						"openid-connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

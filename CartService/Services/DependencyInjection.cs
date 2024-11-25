@@ -1,4 +1,5 @@
-﻿using CartService.Services.Cart;
+﻿using CartService.Services.Authorization;
+using CartService.Services.Cart;
 using CartService.Services.Cart.Mappers;
 using CartService.Services.Events.ProductChanged;
 using CartService.Services.Product;
@@ -8,7 +9,7 @@ namespace CartService.Services;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddApplicationServices(this IServiceCollection services)
+    public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
     {
         services.AddTransient<ICartService, Cart.CartService>();
         services.AddTransient<ICartMapper, CartMapper>();
@@ -17,6 +18,8 @@ public static class DependencyInjection
 
         services.AddHostedService<ProductChangeListener>();
         services.AddSingleton<IProductChangePublisher, ProductChangePublisher>();
+
+        services.AddAuthorizationServices(config);
 
         return services;
     }

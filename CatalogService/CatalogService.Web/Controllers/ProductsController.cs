@@ -5,12 +5,14 @@ using CatalogService.Application.Products.Commands.UpdateProduct;
 using CatalogService.Application.Products.Queries.Common.Dto;
 using CatalogService.Application.Products.Queries.GetProducts;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CatalogService.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProductsController : ControllerBase
     {
         [HttpGet]
@@ -23,6 +25,7 @@ namespace CatalogService.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "Manager")]
         public Task<int> Create(
             [FromServices] ISender sender,
             [FromBody] CreateProductCommand command
@@ -32,6 +35,7 @@ namespace CatalogService.Web.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Policy = "Manager")]
         public async Task<IResult> Update([FromServices] ISender sender, int id, [FromBody] UpdateProductCommand command)
         {
             if (id != command.Id)
@@ -45,6 +49,7 @@ namespace CatalogService.Web.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Policy = "Manager")]
         public async Task<IResult> Delete([FromServices] ISender sender, int id, [FromRoute] DeleteProductCommand command)
         {
             if (id != command.Id)

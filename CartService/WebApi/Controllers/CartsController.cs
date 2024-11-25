@@ -1,6 +1,7 @@
 ﻿using CartService.Services.Cart;
 using CartService.Services.Common.Dto;
 using CartService.Services.Product;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -13,6 +14,7 @@ public record CreateCartRequest(string Id);
 [ApiVersion("1.0")]
 [ApiVersion("2.0")]
 [ApiController]
+[Authorize]
 public class CartsController(ICartService _cartService, IProductService _productService) : ControllerBase
 {
     /// <summary>
