@@ -1,0 +1,15 @@
+﻿E:\repos\e-shop\EShop.MessageBrokerClient\Configuration\CommonQueueSetup.cs
+E:\repos\e-shop\EShop.MessageBrokerClient\Configuration\MessageBrokerConfig.cs
+E:\repos\e-shop\EShop.MessageBrokerClient\Configuration\MessagePipelineConfig.cs
+E:\repos\e-shop\EShop.MessageBrokerClient\DependencyInjection.cs
+E:\repos\e-shop\EShop.MessageBrokerClient\Exceptions\InvalidMessageBrokerConfigException.cs
+E:\repos\e-shop\EShop.MessageBrokerClient\Exceptions\UninitializedMessageBrokerException.cs
+E:\repos\e-shop\EShop.MessageBrokerClient\IMessageBroker.cs
+E:\repos\e-shop\EShop.MessageBrokerClient\IMessageListener.cs
+E:\repos\e-shop\EShop.MessageBrokerClient\IMessagePublisher.cs
+E:\repos\e-shop\EShop.MessageBrokerClient\RabbitMq\GlobalUsings.cs
+E:\repos\e-shop\EShop.MessageBrokerClient\RabbitMq\IMessageBrokerContext.cs
+E:\repos\e-shop\EShop.MessageBrokerClient\RabbitMq\MessageBroker.cs
+E:\repos\e-shop\EShop.MessageBrokerClient\RabbitMq\MessageBrokerContext.cs
+E:\repos\e-shop\EShop.MessageBrokerClient\RabbitMq\MessageListener.cs
+E:\repos\e-shop\EShop.MessageBrokerClient\RabbitMq\MessagePublisher.cs

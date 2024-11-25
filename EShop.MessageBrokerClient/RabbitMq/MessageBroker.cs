@@ -19,9 +19,9 @@ internal class MessageBroker(IMessageBrokerContext context, IMessageListener lis
         listener.Unsubscribe(queue, messageHandler);
     }
 
-    public Task PublishAsync<T>(string queue, T messageObject)
+    public Task PublishAsync<T>(string queue, T message)
     {
-        return publisher.PublishAsync(queue, messageObject);
+        return publisher.PublishAsync(queue, message);
     }
 
     public void Dispose()

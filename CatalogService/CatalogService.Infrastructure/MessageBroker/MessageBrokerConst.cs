@@ -2,5 +2,5 @@
 
 internal static class MessageBrokerConst
 {
-    internal static string ProductSyncQueue = "ProductSyncQueue";
+    internal const string ProductSyncQueue = "ProductSyncQueue";
 }

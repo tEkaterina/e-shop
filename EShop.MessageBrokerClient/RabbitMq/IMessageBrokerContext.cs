@@ -4,7 +4,7 @@ namespace EShop.MessageBrokerClient.RabbitMq;
 
 internal interface IMessageBrokerContext : IDisposable, IAsyncDisposable
 {
-    IChannel Channel { get; }
+    IChannel GetChannel();
 
     Task InitializeAsync(CancellationToken token = default);
 

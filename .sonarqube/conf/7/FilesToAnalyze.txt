@@ -1,0 +1,13 @@
+﻿E:\repos\e-shop\CatalogService\CatalogService.Web\Controllers\CategoriesController.cs
+E:\repos\e-shop\CatalogService\CatalogService.Web\Controllers\ProductsController.cs
+E:\repos\e-shop\CatalogService\CatalogService.Web\Program.cs
+E:\repos\e-shop\CatalogService\CatalogService.Web\obj\Debug\net8.0\CatalogService.Web.GlobalUsings.g.cs
+E:\repos\e-shop\CatalogService\CatalogService.Web\obj\Debug\net8.0\.NETCoreApp,Version=v8.0.AssemblyAttributes.cs
+E:\repos\e-shop\CatalogService\CatalogService.Web\obj\Debug\net8.0\CatalogService.Web.AssemblyInfo.cs
+E:\repos\e-shop\CatalogService\CatalogService.Web\obj\Debug\net8.0\CatalogService.Web.MvcApplicationPartsAssemblyInfo.cs
+E:\repos\e-shop\CatalogService\CatalogService.Web\appsettings.Development.json
+E:\repos\e-shop\CatalogService\CatalogService.Web\appsettings.json
+E:\repos\e-shop\CatalogService\CatalogService.Web\appsettings.Test.json
+E:\repos\e-shop\CatalogService\CatalogService.Web\CatalogService.Web.http
+E:\repos\e-shop\CatalogService\CatalogService.Web\ProductUpdate-Set6.http
+E:\repos\e-shop\CatalogService\CatalogService.Web\Properties\launchSettings.json

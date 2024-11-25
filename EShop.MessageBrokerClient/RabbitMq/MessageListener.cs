@@ -48,7 +48,7 @@ internal class MessageListener(IMessageBrokerContext context) : IMessageListener
             return messageContext;
         }
 
-        var consumer = new AsyncEventingBasicConsumer(context.Channel);
+        var consumer = new AsyncEventingBasicConsumer(context.GetChannel());
         var handlers = new List<Action<string>>();
 
         AsyncEventHandler<BasicDeliverEventArgs> handler = async (_, package) =>
@@ -62,11 +62,11 @@ internal class MessageListener(IMessageBrokerContext context) : IMessageListener
                     handler(message);
                 }
 
-                await context.Channel.BasicAckAsync(package.DeliveryTag, multiple: false).ConfigureAwait(false);
+                await context.GetChannel().BasicAckAsync(package.DeliveryTag, multiple: false).ConfigureAwait(false);
             }
             catch (Exception)
             {
-                await context.Channel.BasicNackAsync(package.DeliveryTag, multiple: false, requeue: false).ConfigureAwait(false);
+                await context.GetChannel().BasicNackAsync(package.DeliveryTag, multiple: false, requeue: false).ConfigureAwait(false);
                 throw;
             }
         };

@@ -1,0 +1,12 @@
+﻿E:\repos\e-shop\CatalogService\CatalogService.Infrastructure\DataAccess\ApplicationDbContext.cs
+E:\repos\e-shop\CatalogService\CatalogService.Infrastructure\DataAccess\DbInitializer.cs
+E:\repos\e-shop\CatalogService\CatalogService.Infrastructure\DataAccess\EntityConfigs\CategoryEntityConfig.cs
+E:\repos\e-shop\CatalogService\CatalogService.Infrastructure\DataAccess\EntityConfigs\ProductEntityConfig.cs
+E:\repos\e-shop\CatalogService\CatalogService.Infrastructure\DataAccess\IDbInitializer.cs
+E:\repos\e-shop\CatalogService\CatalogService.Infrastructure\DependencyInjection.cs
+E:\repos\e-shop\CatalogService\CatalogService.Infrastructure\GlobalUsings.cs
+E:\repos\e-shop\CatalogService\CatalogService.Infrastructure\MessageBroker\ApplicationMessagePublisher.cs
+E:\repos\e-shop\CatalogService\CatalogService.Infrastructure\MessageBroker\MessageBrokerConst.cs
+E:\repos\e-shop\CatalogService\CatalogService.Infrastructure\Migrations\20241008221051_InitialCreate.cs
+E:\repos\e-shop\CatalogService\CatalogService.Infrastructure\Migrations\20241008221051_InitialCreate.Designer.cs
+E:\repos\e-shop\CatalogService\CatalogService.Infrastructure\Migrations\ApplicationDbContextModelSnapshot.cs

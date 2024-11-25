@@ -1,0 +1,9 @@
+﻿E:\repos\e-shop\tests\CatalogService\CatalogService.Application.IntegrationTests\Category\Commands\CreateCategoryTests.cs
+E:\repos\e-shop\tests\CatalogService\CatalogService.Application.IntegrationTests\Category\Queries\GetCategoryHandler.cs
+E:\repos\e-shop\tests\CatalogService\CatalogService.Application.IntegrationTests\IntegrationTestFixture.cs
+C:\Users\hoshi\.nuget\packages\microsoft.net.test.sdk\17.11.1\build\netcoreapp3.1\Microsoft.NET.Test.Sdk.Program.cs
+C:\Users\hoshi\.nuget\packages\microsoft.testplatform.testhost\17.11.1\build\netcoreapp3.1\x64\testhost.exe
+C:\Users\hoshi\.nuget\packages\microsoft.testplatform.testhost\17.11.1\build\netcoreapp3.1\x64\testhost.dll
+C:\Users\hoshi\.nuget\packages\xunit.runner.visualstudio\2.8.2\build\net6.0\xunit.runner.visualstudio.testadapter.dll
+C:\Users\hoshi\.nuget\packages\xunit.runner.visualstudio\2.8.2\build\net6.0\xunit.runner.reporters.netcoreapp10.dll
+C:\Users\hoshi\.nuget\packages\xunit.runner.visualstudio\2.8.2\build\net6.0\xunit.runner.utility.netcoreapp10.dll

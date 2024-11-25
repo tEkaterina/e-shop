@@ -2,5 +2,5 @@
 
 public static class ProductChangeConst
 {
-    public static string QueueName = "ProductSyncQueue";
+    public const string QueueName = "ProductSyncQueue";
 }

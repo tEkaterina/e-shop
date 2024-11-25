@@ -13,17 +13,9 @@ internal class MessageBrokerContext(IOptions<MessageBrokerConfig> config) : IMes
     private IConnection? _connection;
     private IChannel? _channel;
 
-    public IChannel Channel
+    public IChannel GetChannel()
     {
-        get
-        {
-            if (!_initialized)
-            {
-                throw new UninitializedMessageBrokerException();
-            }
-
-            return _channel!;
-        }
+        return !_initialized ? throw new UninitializedMessageBrokerException() : _channel!;
     }
 
     public async Task InitializeAsync(CancellationToken token = default)
@@ -61,7 +53,7 @@ internal class MessageBrokerContext(IOptions<MessageBrokerConfig> config) : IMes
             {"x-message-ttl", 30000},
         };
 
-        await Channel.QueueDeclareAsync(
+        await GetChannel().QueueDeclareAsync(
             pipelineConfig.Queue,
             config.Value.CommonQueueSetup.Durable,
             config.Value.CommonQueueSetup.Exclusive,
@@ -69,12 +61,12 @@ internal class MessageBrokerContext(IOptions<MessageBrokerConfig> config) : IMes
             args
         ).ConfigureAwait(false);
 
-        await Channel.ExchangeDeclareAsync(pipelineConfig.Exchange, ExchangeType.Direct, true, false).ConfigureAwait(false);
+        await GetChannel().ExchangeDeclareAsync(pipelineConfig.Exchange, ExchangeType.Direct, true, false).ConfigureAwait(false);
 
-        await Channel.QueueBindAsync(pipelineConfig.Queue, pipelineConfig.Exchange, pipelineConfig.Route).ConfigureAwait(false);
+        await GetChannel().QueueBindAsync(pipelineConfig.Queue, pipelineConfig.Exchange, pipelineConfig.Route).ConfigureAwait(false);
     }
 
-    public async Task PublishAsync(string pipelineName, byte[] messagePackage)
+    public async Task PublishAsync(string pipelineName, byte[] message)
     {
         await CreateQueueAsync(pipelineName).ConfigureAwait(false);
 
@@ -84,7 +76,7 @@ internal class MessageBrokerContext(IOptions<MessageBrokerConfig> config) : IMes
             DeliveryMode = DeliveryModes.Persistent,
         };
 
-        await Channel.BasicPublishAsync(pipelineConfig.Exchange, pipelineConfig.Route, mandatory: true, properties, messagePackage).ConfigureAwait(false);
+        await GetChannel().BasicPublishAsync(pipelineConfig.Exchange, pipelineConfig.Route, mandatory: true, properties, message).ConfigureAwait(false);
     }
 
     public async Task SubscribeAsync(string pipelineName, IAsyncBasicConsumer consumer)
@@ -92,7 +84,7 @@ internal class MessageBrokerContext(IOptions<MessageBrokerConfig> config) : IMes
         await CreateQueueAsync(pipelineName).ConfigureAwait(false);
         var pipelineConfig = GetPipelineConfig(pipelineName);
 
-        await Channel.BasicConsumeAsync(pipelineConfig.Queue, autoAck: false, consumer).ConfigureAwait(false);
+        await GetChannel().BasicConsumeAsync(pipelineConfig.Queue, autoAck: false, consumer).ConfigureAwait(false);
     }
 
     public MessagePipelineConfig GetPipelineConfig(string pipelineName)
