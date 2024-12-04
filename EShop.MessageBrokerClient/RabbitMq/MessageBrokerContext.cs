@@ -1,5 +1,6 @@
 ﻿using EShop.MessageBrokerClient.Configuration;
 using EShop.MessageBrokerClient.Exceptions;
+
 using Microsoft.Extensions.Options;
 
 namespace EShop.MessageBrokerClient.RabbitMq;
@@ -12,17 +13,9 @@ internal class MessageBrokerContext(IOptions<MessageBrokerConfig> config) : IMes
     private IConnection? _connection;
     private IChannel? _channel;
 
-    public IChannel Channel
+    public IChannel GetChannel()
     {
-        get
-        {
-            if (!_initialized)
-            {
-                throw new UninitializedMessageBrokerException();
-            }
-
-            return _channel!;
-        }
+        return !_initialized ? throw new UninitializedMessageBrokerException() : _channel!;
     }
 
     public async Task InitializeAsync(CancellationToken token = default)
@@ -45,8 +38,8 @@ internal class MessageBrokerContext(IOptions<MessageBrokerConfig> config) : IMes
             factory.Port = config.Value.Port.Value;
         }
 
-        _connection = await factory.CreateConnectionAsync(token);
-        _channel = await _connection.CreateChannelAsync(cancellationToken: token);
+        _connection = await factory.CreateConnectionAsync(token).ConfigureAwait(false);
+        _channel = await _connection.CreateChannelAsync(cancellationToken: token).ConfigureAwait(false);
 
         _initialized = true;
     }
@@ -60,22 +53,22 @@ internal class MessageBrokerContext(IOptions<MessageBrokerConfig> config) : IMes
             {"x-message-ttl", 30000},
         };
 
-        await Channel.QueueDeclareAsync(
+        await GetChannel().QueueDeclareAsync(
             pipelineConfig.Queue,
             config.Value.CommonQueueSetup.Durable,
             config.Value.CommonQueueSetup.Exclusive,
             config.Value.CommonQueueSetup.AutoDelete,
             args
-        );
+        ).ConfigureAwait(false);
 
-        await Channel.ExchangeDeclareAsync(pipelineConfig.Exchange, ExchangeType.Direct, true, false);
+        await GetChannel().ExchangeDeclareAsync(pipelineConfig.Exchange, ExchangeType.Direct, true, false).ConfigureAwait(false);
 
-        await Channel.QueueBindAsync(pipelineConfig.Queue, pipelineConfig.Exchange, pipelineConfig.Route);
+        await GetChannel().QueueBindAsync(pipelineConfig.Queue, pipelineConfig.Exchange, pipelineConfig.Route).ConfigureAwait(false);
     }
 
-    public async Task PublishAsync(string pipelineName, byte[] messagePackage)
+    public async Task PublishAsync(string pipelineName, byte[] message)
     {
-        await CreateQueueAsync(pipelineName);
+        await CreateQueueAsync(pipelineName).ConfigureAwait(false);
 
         var pipelineConfig = GetPipelineConfig(pipelineName);
         BasicProperties properties = new()
@@ -83,15 +76,15 @@ internal class MessageBrokerContext(IOptions<MessageBrokerConfig> config) : IMes
             DeliveryMode = DeliveryModes.Persistent,
         };
 
-        await Channel.BasicPublishAsync(pipelineConfig.Exchange, pipelineConfig.Route, mandatory: true, properties, messagePackage);
+        await GetChannel().BasicPublishAsync(pipelineConfig.Exchange, pipelineConfig.Route, mandatory: true, properties, message).ConfigureAwait(false);
     }
 
     public async Task SubscribeAsync(string pipelineName, IAsyncBasicConsumer consumer)
     {
-        await CreateQueueAsync(pipelineName);
+        await CreateQueueAsync(pipelineName).ConfigureAwait(false);
         var pipelineConfig = GetPipelineConfig(pipelineName);
 
-        await Channel.BasicConsumeAsync(pipelineConfig.Queue, autoAck: false, consumer);
+        await GetChannel().BasicConsumeAsync(pipelineConfig.Queue, autoAck: false, consumer).ConfigureAwait(false);
     }
 
     public MessagePipelineConfig GetPipelineConfig(string pipelineName)
@@ -143,14 +136,14 @@ internal class MessageBrokerContext(IOptions<MessageBrokerConfig> config) : IMes
     {
         if (_channel is not null)
         {
-            await _channel.CloseAsync();
+            await _channel.CloseAsync().ConfigureAwait(false);
             await _channel.DisposeAsync().ConfigureAwait(false);
             _channel = null;
         }
 
         if (_connection is not null)
         {
-            await _connection.CloseAsync();
+            await _connection.CloseAsync().ConfigureAwait(false);
             await _connection.DisposeAsync().ConfigureAwait(false);
             _connection = null;
         }

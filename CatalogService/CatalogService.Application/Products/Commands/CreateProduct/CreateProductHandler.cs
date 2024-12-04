@@ -20,7 +20,7 @@ namespace CatalogService.Application.Products.Commands.CreateProduct
 
             _dbContext.Products.Add(product);
 
-            await _dbContext.SaveChangesAsync(cancellationToken);
+            await _dbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
             return product.Id;
         }

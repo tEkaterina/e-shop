@@ -10,7 +10,7 @@ public class GetCategoryHandler(IApplicationDbContext dbContext) : IRequestHandl
 
     public async Task<CategoryDto> Handle(GetCategoryQuery request, CancellationToken cancellationToken)
     {
-        var category = await _dbContext.Categories.FindAsync([request.Id], cancellationToken);
+        var category = await _dbContext.Categories.FindAsync([request.Id], cancellationToken).ConfigureAwait(false);
 
         Guard.Against.NotFound(request.Id, category);
 

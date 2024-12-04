@@ -4,13 +4,13 @@ namespace CartService.Services.Cart;
 
 public interface ICartService
 {
-    Task<CartDto> GetAsync(string cartId);
+    CartDto Get(string cartId);
 
-    Task<CartDto> GetOrCreateAsync(string cartId);
+    CartDto GetOrCreate(string cartId);
 
     bool Delete(string cartId);
 
-    Task<CartDto> AddProductAsync(string cartId, int productId, int count = 1);
+    CartDto AddProduct(string cartId, int productId, int count = 1);
 
     bool DeleteProduct(string cartId, int productId, int? count = null);
 }

@@ -1,0 +1,5 @@
+<Project>
+  <Target Name="FormatCode" BeforeTargets="BeforeBuild" Condition="'$(Configuration)' == 'Debug'">
+    <Exec Command="dotnet format" />
+  </Target>
+</Project>

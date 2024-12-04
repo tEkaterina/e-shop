@@ -1,0 +1,3 @@
+﻿E:\repos\e-shop\CatalogService\CatalogService.Domain\Entities\Category.cs
+E:\repos\e-shop\CatalogService\CatalogService.Domain\Entities\Product.cs
+E:\repos\e-shop\CatalogService\CatalogService.Domain\Events\ProductChangeEvent.cs

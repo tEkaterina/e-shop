@@ -9,7 +9,7 @@ public class UpdateProductHandler(IApplicationDbContext dbContext, IApplicationM
 
     public async Task Handle(UpdateProductCommand request, CancellationToken cancellationToken)
     {
-        var product = await _dbContext.Products.FindAsync([request.Id], cancellationToken);
+        var product = await _dbContext.Products.FindAsync([request.Id], cancellationToken).ConfigureAwait(false);
 
         Guard.Against.NotFound(request.Id, product);
 
@@ -20,7 +20,7 @@ public class UpdateProductHandler(IApplicationDbContext dbContext, IApplicationM
         product.Image = request.Image;
         product.Name = request.Name;
 
-        await _dbContext.SaveChangesAsync(cancellationToken);
+        await _dbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
         await publisher.PublishProductUpdateAsync(new ProductChangeEvent(request.Id, new ProductChangeDetails()
         {
@@ -28,6 +28,6 @@ public class UpdateProductHandler(IApplicationDbContext dbContext, IApplicationM
             Image = request.Image,
             Name = request.Name,
             Price = request.Price
-        }));
+        })).ConfigureAwait(false);
     }
 }

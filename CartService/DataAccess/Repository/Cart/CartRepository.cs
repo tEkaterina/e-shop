@@ -1,5 +1,5 @@
-﻿using CartService.DataAccess.LiteDb;
-using CartService.DataAccess.Common.Entities;
+﻿using CartService.DataAccess.Common.Entities;
+using CartService.DataAccess.LiteDb;
 
 namespace CartService.DataAccess.Repository.Cart
 {

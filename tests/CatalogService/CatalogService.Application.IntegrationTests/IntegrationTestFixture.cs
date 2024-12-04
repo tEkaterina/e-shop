@@ -1,6 +1,8 @@
 using CatalogService.Infrastructure;
 using CatalogService.Infrastructure.DataAccess;
+
 using MediatR;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,7 +40,7 @@ public class IntegrationTestFixture : IDisposable
     {
         var mediatr = ServiceProvider.GetRequiredService<ISender>();
 
-        return await mediatr.Send(command);
+        return await mediatr.Send(command).ConfigureAwait(false);
     }
 
 

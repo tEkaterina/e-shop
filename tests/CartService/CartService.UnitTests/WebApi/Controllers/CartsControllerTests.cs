@@ -1,12 +1,16 @@
 ﻿
-using Moq;
-using CartService.WebApi.Controllers;
+using Ardalis.GuardClauses;
+
 using CartService.Services.Cart;
 using CartService.Services.Common.Dto;
-using Microsoft.AspNetCore.Mvc;
-using FluentAssertions;
 using CartService.Services.Product;
-using Ardalis.GuardClauses;
+using CartService.WebApi.Controllers;
+
+using FluentAssertions;
+
+using Microsoft.AspNetCore.Mvc;
+
+using Moq;
 
 namespace CartService.UnitTests.WebApi.Controllers;
 
@@ -24,16 +28,16 @@ public class CartsControllerTests
     }
 
     [Fact]
-    public async Task GetProducts_ReturnsOk_WithProductList()
+    public void GetProducts_ReturnsOk_WithProductList()
     {
         // arrange
         ProductDto[] products = [new ProductDto(10, "Product1")];
         CartDto cartDto = new("abc") { Products = products };
 
-        _cartServiceMock.Setup(x => x.GetAsync("abc")).ReturnsAsync(cartDto);
+        _cartServiceMock.Setup(x => x.Get("abc")).Returns(cartDto);
 
         // act
-        IActionResult result = await _controller.GetProducts("abc");
+        IActionResult result = _controller.GetProducts("abc");
 
         // assert
         OkObjectResult okResult = result.Should().BeOfType<OkObjectResult>().Subject;
@@ -41,13 +45,13 @@ public class CartsControllerTests
     }
 
     [Fact]
-    public async Task GetProducts_ReturnsNotFound_WhenCartDoesNotExist()
+    public void GetProducts_ReturnsNotFound_WhenCartDoesNotExist()
     {
         // arrange
-        _cartServiceMock.Setup(x => x.GetAsync("abc")).ThrowsAsync(new NotFoundException("cartId", "cart"));
+        _cartServiceMock.Setup(x => x.Get("abc")).Throws(new NotFoundException("cartId", "cart"));
 
         // act
-        IActionResult result = await _controller.GetProducts("abc");
+        IActionResult result = _controller.GetProducts("abc");
 
         // assert
         result.Should().BeOfType<NotFoundObjectResult>();

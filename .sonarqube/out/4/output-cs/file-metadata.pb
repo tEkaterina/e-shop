@@ -1,0 +1,16 @@
+†
+{E:\repos\e-shop\CatalogService\CatalogService.Infrastructure\obj\Debug\net8.0\CatalogService.Infrastructure.AssemblyInfo.csutf-8‡
+|E:\repos\e-shop\CatalogService\CatalogService.Infrastructure\obj\Debug\net8.0\.NETCoreApp,Version=v8.0.AssemblyAttributes.csutf-8ˆ
+}E:\repos\e-shop\CatalogService\CatalogService.Infrastructure\obj\Debug\net8.0\CatalogService.Infrastructure.GlobalUsings.g.csutf-8w
+lE:\repos\e-shop\CatalogService\CatalogService.Infrastructure\Migrations\ApplicationDbContextModelSnapshot.csutf-8{
+pE:\repos\e-shop\CatalogService\CatalogService.Infrastructure\Migrations\20241008221051_InitialCreate.Designer.csutf-8p
+gE:\repos\e-shop\CatalogService\CatalogService.Infrastructure\Migrations\20241008221051_InitialCreate.csutf-8i
+`E:\repos\e-shop\CatalogService\CatalogService.Infrastructure\MessageBroker\MessageBrokerConst.csutf-8r
+iE:\repos\e-shop\CatalogService\CatalogService.Infrastructure\MessageBroker\ApplicationMessagePublisher.csutf-8U
+LE:\repos\e-shop\CatalogService\CatalogService.Infrastructure\GlobalUsings.csutf-8\
+SE:\repos\e-shop\CatalogService\CatalogService.Infrastructure\DependencyInjection.csutf-8b
+YE:\repos\e-shop\CatalogService\CatalogService.Infrastructure\DataAccess\IDbInitializer.csutf-8u
+lE:\repos\e-shop\CatalogService\CatalogService.Infrastructure\DataAccess\EntityConfigs\ProductEntityConfig.csutf-8v
+mE:\repos\e-shop\CatalogService\CatalogService.Infrastructure\DataAccess\EntityConfigs\CategoryEntityConfig.csutf-8a
+XE:\repos\e-shop\CatalogService\CatalogService.Infrastructure\DataAccess\DbInitializer.csutf-8h
+_E:\repos\e-shop\CatalogService\CatalogService.Infrastructure\DataAccess\ApplicationDbContext.csutf-8

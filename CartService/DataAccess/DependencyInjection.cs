@@ -1,6 +1,7 @@
 ﻿using CartService.DataAccess.LiteDb;
 using CartService.DataAccess.Repository.Cart;
 using CartService.DataAccess.Repository.Product;
+
 using EShop.MessageBrokerClient;
 using EShop.MessageBrokerClient.Configuration;
 
@@ -14,7 +15,7 @@ namespace CartService.DataAccess
 
             if (env.IsEnvironment("Test"))
             {
-                services.AddSingleton<IDbInstance>(new TestDbInstance(connectionString));
+                services.AddSingleton<IDbInstance>(new InMemoryDbInstance(connectionString));
             }
             else
             {

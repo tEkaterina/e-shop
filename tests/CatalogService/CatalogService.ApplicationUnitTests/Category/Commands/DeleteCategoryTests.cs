@@ -1,6 +1,8 @@
 ﻿using Ardalis.GuardClauses;
+
 using CatalogService.Application.Categories.Commands.DeleteCategory;
 using CatalogService.Application.Common.Interfaces;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace CatalogService.Application.UnitTests.Category.Commands;
@@ -26,7 +28,7 @@ public class DeleteCategoryTests
         var command = new DeleteCategoryCommand(categoryId);
 
         // Act
-        await handler.Handle(command, CancellationToken.None);
+        await handler.Handle(command, CancellationToken.None).ConfigureAwait(true);
 
         // Assert
         mockDbSet.Verify(m => m.Remove(It.Is<Domain.Entities.Category>(c => c.Id == categoryId)), Times.Once);
@@ -50,9 +52,9 @@ public class DeleteCategoryTests
         var command = new DeleteCategoryCommand(categoryId);
 
         // Act
-        Func<Task> act = async () => { await handler.Handle(command, CancellationToken.None); };
+        Func<Task> act = async () => { await handler.Handle(command, CancellationToken.None).ConfigureAwait(false); };
 
         // Assert
-        await act.Should().ThrowAsync<NotFoundException>();
+        await act.Should().ThrowAsync<NotFoundException>().ConfigureAwait(true);
     }
 }

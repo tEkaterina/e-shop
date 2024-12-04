@@ -4,7 +4,7 @@ public record CreateCategoryCommand() : IRequest<int>
 {
     public string Name { get; init; } = string.Empty;
 
-    public string? Image {  get; init; }
+    public string? Image { get; init; }
 
-    public int? ParentCategoryId {  get; init; }
+    public int? ParentCategoryId { get; init; }
 }

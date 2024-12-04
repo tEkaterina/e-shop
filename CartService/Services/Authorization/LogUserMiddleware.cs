@@ -14,7 +14,7 @@ public class LogUserMiddleware(ILogger<LogUserMiddleware> logger) : IMiddleware
                 context.User.Claims.Where(x => x.Type.Equals(ClaimTypes.Role)).Select(x => x.Value)
             );
 
-            string message = $"User {username} ({name}) with roles {roles} making [{context.Request.Method} {context.Request.Path}]";
+            var message = $"User {username} ({name}) with roles {roles} making [{context.Request.Method} {context.Request.Path}]";
             logger.LogInformation(message);
         }
 

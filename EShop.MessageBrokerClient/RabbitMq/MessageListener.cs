@@ -1,9 +1,10 @@
-﻿using RabbitMQ.Client.Events;
-using System.Text;
+﻿using System.Text;
+
+using RabbitMQ.Client.Events;
 
 namespace EShop.MessageBrokerClient.RabbitMq;
 
-record MessageListenerContext(AsyncEventingBasicConsumer Consumer, AsyncEventHandler<BasicDeliverEventArgs> DeliveryHandler, IList<Action<string>> Handlers);
+internal record MessageListenerContext(AsyncEventingBasicConsumer Consumer, AsyncEventHandler<BasicDeliverEventArgs> DeliveryHandler, IList<Action<string>> Handlers);
 
 internal class MessageListener(IMessageBrokerContext context) : IMessageListener
 {
@@ -11,7 +12,7 @@ internal class MessageListener(IMessageBrokerContext context) : IMessageListener
 
     public async Task SubscribeAsync(string queue, Action<string> messageHandler)
     {
-        MessageListenerContext listenerContext = await GetOrCreateMessageContext(queue);
+        MessageListenerContext listenerContext = await GetOrCreateMessageContext(queue).ConfigureAwait(false);
         listenerContext.Handlers.Add(messageHandler);
     }
 
@@ -47,25 +48,25 @@ internal class MessageListener(IMessageBrokerContext context) : IMessageListener
             return messageContext;
         }
 
-        var consumer = new AsyncEventingBasicConsumer(context.Channel);
+        var consumer = new AsyncEventingBasicConsumer(context.GetChannel());
         var handlers = new List<Action<string>>();
 
         AsyncEventHandler<BasicDeliverEventArgs> handler = async (_, package) =>
         {
             try
             {
-                string message = Encoding.UTF8.GetString(package.Body.ToArray());
+                var message = Encoding.UTF8.GetString(package.Body.ToArray());
 
                 foreach (var handler in handlers)
                 {
                     handler(message);
                 }
 
-                await context.Channel.BasicAckAsync(package.DeliveryTag, multiple: false);
+                await context.GetChannel().BasicAckAsync(package.DeliveryTag, multiple: false).ConfigureAwait(false);
             }
             catch (Exception)
             {
-                await context.Channel.BasicNackAsync(package.DeliveryTag, multiple: false, requeue: false);
+                await context.GetChannel().BasicNackAsync(package.DeliveryTag, multiple: false, requeue: false).ConfigureAwait(false);
                 throw;
             }
         };
@@ -76,7 +77,7 @@ internal class MessageListener(IMessageBrokerContext context) : IMessageListener
 
         _queueHandlers.Add(queue, messageContext);
 
-        await context.SubscribeAsync(queue, consumer);
+        await context.SubscribeAsync(queue, consumer).ConfigureAwait(false);
 
         return messageContext;
     }

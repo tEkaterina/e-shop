@@ -1,20 +1,22 @@
-﻿using EShop.MessageBrokerClient;
-using System.Text.Json;
+﻿using System.Text.Json;
+
+using EShop.MessageBrokerClient;
 
 namespace CartService.Services.Events.ProductChanged;
 
 internal class ProductChangePublisher(IMessageBroker messageBroker) : IProductChangePublisher
 {
     private EventHandler<ProductChangeEvent>? _handler;
-    private bool _subscribed = false;
-    private object _lock = new object();
+    private readonly bool _subscribed = false;
+    private readonly object _lock = new object();
     private bool _disposed = false;
 
     public event EventHandler<ProductChangeEvent> OnProductChanged
     {
         add
         {
-            lock(_lock) {
+            lock (_lock)
+            {
                 SubscribeOnQueue();
                 _handler += value;
             }
@@ -31,7 +33,7 @@ internal class ProductChangePublisher(IMessageBroker messageBroker) : IProductCh
     public void Dispose()
     {
         if (_disposed) return;
-        
+
         Dispose(disposing: true);
         GC.SuppressFinalize(this);
 
@@ -60,7 +62,8 @@ internal class ProductChangePublisher(IMessageBroker messageBroker) : IProductCh
     {
         if (disposing)
         {
-            if (_subscribed) {
+            if (_subscribed)
+            {
                 messageBroker.Unsubscribe(ProductChangeConst.QueueName, HandleProductPublish);
             }
 

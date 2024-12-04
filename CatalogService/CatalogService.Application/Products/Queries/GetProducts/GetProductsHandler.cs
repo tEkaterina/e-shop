@@ -18,7 +18,7 @@ namespace CatalogService.Application.Products.Queries.GetProducts
                 products = products.Where(x => x.CategoryId == request.CategoryId);
             }
 
-            return PaginatedList<ProductDto>.CreateAsync(products.Select(x => x.ToProductDto()), cancellationToken, request.PageIndex, request.PageSize);
+            return PaginatedList<ProductDto>.CreateAsync(products.Select(x => x.ToProductDto()), request.PageIndex, request.PageSize, cancellationToken);
         }
     }
 }

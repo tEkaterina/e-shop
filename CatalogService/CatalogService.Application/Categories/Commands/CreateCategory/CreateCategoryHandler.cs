@@ -17,7 +17,7 @@ public class CreateCategoryHandler(IApplicationDbContext dbContext) : IRequestHa
 
         _dbContext.Categories.Add(category);
 
-        await _dbContext.SaveChangesAsync(cancellationToken);
+        await _dbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
         return category.Id;
     }

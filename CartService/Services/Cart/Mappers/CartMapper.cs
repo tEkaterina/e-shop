@@ -1,6 +1,6 @@
-﻿using CartService.Services.Product;
+﻿using CartService.DataAccess.Common.Entities;
 using CartService.Services.Common.Dto;
-using CartService.DataAccess.Common.Entities;
+using CartService.Services.Product;
 
 namespace CartService.Services.Cart.Mappers;
 
@@ -37,12 +37,12 @@ public class CartMapper(IProductService productService) : ICartMapper
         return new CartDto(cart.Id) { Products = products };
     }
 
-    public ProductDto? ToProductDto(AddedProductEntity cartProduct)
+    public ProductDto? ToProductDto(AddedProductEntity addedProduct)
     {
-        var product = _productService.GetProduct(cartProduct.ProductId);
+        var product = _productService.GetProduct(addedProduct.ProductId);
         if (product != null)
         {
-            product.Count = cartProduct.Count;
+            product.Count = addedProduct.Count;
         }
 
         return product;

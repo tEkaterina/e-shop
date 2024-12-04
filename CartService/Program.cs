@@ -1,10 +1,12 @@
 using CartService.DataAccess;
 using CartService.Services;
+using CartService.Services.Authorization;
+using CartService.WebApi;
+
+using EShop.MessageBrokerClient;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
-using CartService.WebApi;
-using EShop.MessageBrokerClient;
-using CartService.Services.Authorization;
 
 public class Program
 {
@@ -32,7 +34,7 @@ public class Program
 
         // Initialize
         var messageBroker = app.Services.GetRequiredService<IMessageBroker>();
-        await messageBroker.InitializeAsync();
+        await messageBroker.InitializeAsync().ConfigureAwait(false);
 
         // Configure the HTTP request pipeline.
 

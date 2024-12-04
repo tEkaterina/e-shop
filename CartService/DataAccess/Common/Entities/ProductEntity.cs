@@ -4,9 +4,9 @@ namespace CartService.DataAccess.Common.Entities;
 
 public record ProductEntity(int Id)
 {
-    public string Name { get; set; }
+    public required string Name { get; set; }
 
-    public decimal Price { get; set; }
+    public required decimal Price { get; set; }
 
     public string? Description { get; set; }
 

@@ -1,5 +1,6 @@
 ﻿using CatalogService.Application.Common.Extensions.Validators;
 using CatalogService.Application.Common.Interfaces;
+
 using FluentValidation;
 
 namespace CatalogService.Application.Products.Commands.CreateProduct;
@@ -22,7 +23,7 @@ public class CreateProductValidator : AbstractValidator<CreateProductCommand>
 
     private async Task<bool> IsValidCategory(int categoryId, CancellationToken cancellationToken)
     {
-        var category = await _dbContext.Categories.FindAsync([categoryId], cancellationToken);
+        var category = await _dbContext.Categories.FindAsync([categoryId], cancellationToken).ConfigureAwait(false);
         return category != null;
     }
 }

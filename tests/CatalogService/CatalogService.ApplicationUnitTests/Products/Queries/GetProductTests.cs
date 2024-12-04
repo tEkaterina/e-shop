@@ -1,7 +1,9 @@
 ﻿using Ardalis.GuardClauses;
+
 using CatalogService.Application.Common.Interfaces;
 using CatalogService.Application.Products.Queries.Common.Dto;
 using CatalogService.Application.Products.Queries.GetProduct;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace CatalogService.Application.UnitTests.Products.Queries
@@ -27,7 +29,7 @@ namespace CatalogService.Application.UnitTests.Products.Queries
             var query = new GetProductQuery(productId);
 
             // Act
-            var result = await handler.Handle(query, CancellationToken.None);
+            var result = await handler.Handle(query, CancellationToken.None).ConfigureAwait(true);
 
             // Assert
             result.Should().BeEquivalentTo(productDto);
@@ -50,10 +52,10 @@ namespace CatalogService.Application.UnitTests.Products.Queries
             var query = new GetProductQuery(productId);
 
             // Act
-            Func<Task> act = async () => { await handler.Handle(query, CancellationToken.None); };
+            Func<Task> act = async () => { await handler.Handle(query, CancellationToken.None).ConfigureAwait(false); };
 
             // Assert
-            await act.Should().ThrowAsync<NotFoundException>();
+            await act.Should().ThrowAsync<NotFoundException>().ConfigureAwait(true);
         }
     }
 }
