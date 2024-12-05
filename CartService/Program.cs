@@ -1,3 +1,4 @@
+using CartService.Configuration;
 using CartService.DataAccess;
 using CartService.Services;
 using CartService.Services.Authorization;
@@ -13,6 +14,8 @@ public class Program
     public static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+
+        builder.Configuration.AddEnvironmentVariables(prefix: EnvConfiguration.AppEnvVariablePrefix);
 
         // Add services to the container.
 

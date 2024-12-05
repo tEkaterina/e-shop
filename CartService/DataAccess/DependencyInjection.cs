@@ -11,7 +11,7 @@ namespace CartService.DataAccess
     {
         public static IServiceCollection AddDataAccessServices(this IServiceCollection services, IConfiguration config, IWebHostEnvironment env)
         {
-            var connectionString = config.GetConnectionString("LiteDb");
+            var connectionString = config.GetConnectionString("DefaultConnection");
 
             if (env.IsEnvironment("Test"))
             {

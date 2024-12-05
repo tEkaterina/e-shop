@@ -1,6 +1,7 @@
 using CatalogService.Infrastructure;
 using CatalogService.Infrastructure.Authorization;
 using CatalogService.Infrastructure.DataAccess;
+using CatalogService.Infrastructure.Environment;
 
 using EShop.MessageBrokerClient;
 
@@ -12,9 +13,11 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
+        builder.Configuration.AddEnvironmentVariables(prefix: EnvConfiguration.AppEnvVariablePrefix);
+
         // Add services to the container.
-        builder.Services.AddAppServices();
         builder.Services.AddInfrastructureServices(builder.Configuration);
+        builder.Services.AddAppServices();
         builder.Services.AddControllers();
         builder.Services.AddAuthorizationServices(builder.Configuration);
 

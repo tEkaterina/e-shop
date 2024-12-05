@@ -1,0 +1,62 @@
+services:
+  message-broker:
+    image: rabbitmq:3-management
+    environment:
+      RABBITMQ_DEFAULT_USER: eshopuser
+      RABBITMQ_DEFAULT_PASS: sKxX8nYq97FX
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+
+  identity-server:
+    image: ${DOCKER_REGISTRY-}eshop-identity-server
+    build:
+      context: .
+      dockerfile: Dependencies/identity-server/Dockerfile
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+    ports:
+      - "5177:8080"
+
+  cartservice:
+    image: ${DOCKER_REGISTRY-}cartservice
+    environment:
+      ESHOP_MessageBrokerConfig__UserName: eshopuser
+      ESHOP_MessageBrokerConfig__Password: sKxX8nYq97FX
+      ESHOP_MessageBrokerConfig__HostName: message-broker
+      ESHOP_MessageBrokerConfig__VirtualHost: "/"
+      ESHOP_MessageBrokerConfig__Port: 5672
+      ESHOP_JwtTokenConfig__Authority: "http://identity-server:8080/realms/eshop-identity"
+      ESHOP_JwtTokenConfig__Issuer: "eshop-client"
+      ESHOP_ConnectionStrings__DefaultConnection: "Filename=eshop-cart.db;Connection=shared"
+    build:
+      context: .
+      dockerfile: CartService/Dockerfile
+    depends_on:
+      - message-broker
+    ports:
+      - "5136:8080"
+      - "5137:8081"
+ 
+  catalogservice.web:
+    image: ${DOCKER_REGISTRY-}catalogserviceweb
+    environment:
+      ESHOP_MessageBrokerConfig__UserName: eshopuser
+      ESHOP_MessageBrokerConfig__Password: sKxX8nYq97FX
+      ESHOP_MessageBrokerConfig__HostName: message-broker
+      ESHOP_MessageBrokerConfig__VirtualHost: "/"
+      ESHOP_MessageBrokerConfig__Port: 5672
+      ESHOP_JwtTokenConfig__Authority: "http://identity-server:8080/realms/eshop-identity"
+      ESHOP_JwtTokenConfig__Issuer: "eshop-client"
+      ESHOP_ConnectionStrings__DefaultConnection: Data source=CatalogDb.db
+    build:
+      context: .
+      dockerfile: CatalogService/CatalogService.Web/Dockerfile
+    ports:
+      - "5164:8080"
+      - "5165:8081"
+
+volumes:
+  calatalog-service-data:
+  cart-service-data:

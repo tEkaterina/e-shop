@@ -31,29 +31,26 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatalogService.Application.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatalogService.Web.IntegrationTests", "tests\CatalogService\CatalogService.Web.IntegrationTests\CatalogService.Web.IntegrationTests.csproj", "{00AA0F8F-49E5-4854-8013-389B8319D995}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{34859C96-61DB-440A-B2D0-F5D02D4C545E}"
-	ProjectSection(SolutionItems) = preProject
-		scripts\start-rabbitmq.bat = scripts\start-rabbitmq.bat
-		scripts\stop-rabbitmq.bat = scripts\stop-rabbitmq.bat
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{606E0AD0-7768-4F1A-90D1-6F793CC55062}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EShop.MessageBrokerClient", "EShop.MessageBrokerClient\EShop.MessageBrokerClient.csproj", "{1479EDAB-4F86-41D2-A3B0-C10288E3020F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "identity-server", "identity-server", "{541D5144-59A2-49FA-8A7F-86AD35D27DFA}"
-	ProjectSection(SolutionItems) = preProject
-		scripts\identity-server\Dockerfile = scripts\identity-server\Dockerfile
-		scripts\identity-server\eshop-identity-realm.json = scripts\identity-server\eshop-identity-realm.json
-		scripts\identity-server\recreate-identity-server.bat = scripts\identity-server\recreate-identity-server.bat
-		scripts\identity-server\run-identity-server.bat = scripts\identity-server\run-identity-server.bat
-	EndProjectSection
-EndProject
-
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4495527C-551B-4B64-94D9-99A4A0DE53AE}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		Directory.Build.targets = Directory.Build.targets
+		Dependencies\identity-server\Dockerfile = Dependencies\identity-server\Dockerfile
+		Dependencies\identity-server\eshop-identity-realm.json = Dependencies\identity-server\eshop-identity-realm.json
+	EndProjectSection
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{8D7AAA10-12AB-4B9F-B1B4-EABFC0896865}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependencies", "Dependencies", "{BB89B96C-C700-44BD-81A2-DB23FD6F5558}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "identity-server", "identity-server", "{3C249CB4-EC9C-4871-82CF-896FEF83508B}"
+	ProjectSection(SolutionItems) = preProject
+		Dependencies\identity-server\Dockerfile = Dependencies\identity-server\Dockerfile
+		Dependencies\identity-server\eshop-identity-realm.json = Dependencies\identity-server\eshop-identity-realm.json
 	EndProjectSection
 EndProject
 Global
@@ -106,6 +103,10 @@ Global
 		{1479EDAB-4F86-41D2-A3B0-C10288E3020F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1479EDAB-4F86-41D2-A3B0-C10288E3020F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1479EDAB-4F86-41D2-A3B0-C10288E3020F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D7AAA10-12AB-4B9F-B1B4-EABFC0896865}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D7AAA10-12AB-4B9F-B1B4-EABFC0896865}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D7AAA10-12AB-4B9F-B1B4-EABFC0896865}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D7AAA10-12AB-4B9F-B1B4-EABFC0896865}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -123,7 +124,8 @@ Global
 		{559A6B5A-2515-4C87-889E-4E6CEB355A26} = {03CB3494-0887-4D0E-8A81-AB5E0A58DBDB}
 		{00AA0F8F-49E5-4854-8013-389B8319D995} = {03CB3494-0887-4D0E-8A81-AB5E0A58DBDB}
 		{1479EDAB-4F86-41D2-A3B0-C10288E3020F} = {606E0AD0-7768-4F1A-90D1-6F793CC55062}
-		{541D5144-59A2-49FA-8A7F-86AD35D27DFA} = {34859C96-61DB-440A-B2D0-F5D02D4C545E}
+		{BB89B96C-C700-44BD-81A2-DB23FD6F5558} = {4495527C-551B-4B64-94D9-99A4A0DE53AE}
+		{3C249CB4-EC9C-4871-82CF-896FEF83508B} = {BB89B96C-C700-44BD-81A2-DB23FD6F5558}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C1AC9212-F4B9-44DE-80DC-A453F5F7BF3F}
