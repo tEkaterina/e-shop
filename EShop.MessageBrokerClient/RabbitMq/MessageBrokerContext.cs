@@ -31,6 +31,9 @@ internal class MessageBrokerContext(IOptions<MessageBrokerConfig> config) : IMes
             HostName = config.Value.HostName,
             Password = config.Value.Password,
             VirtualHost = config.Value.VirtualHost,
+            RequestedConnectionTimeout = TimeSpan.FromMinutes(2),
+            AutomaticRecoveryEnabled = true,
+            NetworkRecoveryInterval = TimeSpan.FromSeconds(10)
         };
 
         if (config.Value.Port.HasValue)

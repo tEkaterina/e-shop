@@ -1,5 +1,7 @@
-﻿using CartService.DataAccess.Common.Entities;
-using CartService.DataAccess.LiteDb;
+﻿using CartService.DataAccess.Common.Db;
+using CartService.DataAccess.Common.Entities;
+
+using MongoDB.Driver;
 
 namespace CartService.DataAccess.Repository.Cart
 {
@@ -9,12 +11,12 @@ namespace CartService.DataAccess.Repository.Cart
         {
             return _db.RunOnCarts((carts) =>
             {
-                if (carts.FindById(cart.Id) != null)
+                if (Find(carts, cart.Id) != null)
                 {
-                    return carts.Update(cart);
+                    return carts.ReplaceOne(GetFilterById(cart.Id), cart).IsAcknowledged;
                 }
 
-                carts.Insert(cart);
+                carts.InsertOne(cart);
 
                 return true;
             });
@@ -24,24 +26,25 @@ namespace CartService.DataAccess.Repository.Cart
         {
             return _db.RunOnCarts((carts) =>
             {
-                return carts.Delete(id);
+                return carts.DeleteOne(GetFilterById(id)).IsAcknowledged;
             });
         }
 
         public bool Exists(string id)
         {
-            return _db.RunOnCarts((carts) =>
-            {
-                return carts.FindById(id) != null;
-            });
+            return _db.RunOnCarts((carts) => Find(carts, id) != null);
         }
 
         public CartEntity? GetCart(string id)
         {
-            return _db.RunOnCarts((carts) =>
-            {
-                return carts.FindById(id);
-            });
+            return _db.RunOnCarts((carts) => Find(carts, id));
         }
+
+        private CartEntity? Find(IMongoCollection<CartEntity> carts, string id)
+        {
+            return carts.FindSync(GetFilterById(id)).FirstOrDefault();
+        }
+
+        private FilterDefinition<CartEntity> GetFilterById(string id) => Builders<CartEntity>.Filter.Eq(x => x.Id, id);
     }
 }

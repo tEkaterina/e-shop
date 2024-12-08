@@ -1,3 +1,4 @@
+using CartService.Configuration;
 using CartService.DataAccess;
 using CartService.Services;
 using CartService.Services.Authorization;
@@ -14,10 +15,12 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
+        builder.Configuration.AddEnvironmentVariables(prefix: EnvConfiguration.AppEnvVariablePrefix);
+
         // Add services to the container.
 
         builder.Services.AddControllers();
-        builder.Services.AddDataAccessServices(builder.Configuration, builder.Environment);
+        builder.Services.AddDataAccessServices(builder.Configuration);
         builder.Services.AddApplicationServices(builder.Configuration);
 
         builder.Services.AddApiVersioning(options =>
