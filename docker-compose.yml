@@ -29,7 +29,7 @@ services:
       ESHOP_MessageBrokerConfig__Port: 5672
       ESHOP_JwtTokenConfig__Authority: "http://eshop-identity-server:8080/realms/eshop-identity"
       ESHOP_JwtTokenConfig__Issuer: "eshop-client"
-      ESHOP_ConnectionStrings__DefaultConnection: "mongodb://admin:admin@cartservice-db:27017"
+      ESHOP_ConnectionStrings__DefaultConnection: "mongodb://admin:3f8nLnAez30z@cartservice-db:27017"
       ESHOP_DataSourceConfig__DbName: eshop-cart
       ESHOP_DataSourceConfig__CartCollectionName: carts
       ESHOP_DataSourceConfig__ProductCollectionName: products
@@ -38,6 +38,7 @@ services:
       dockerfile: CartService/Dockerfile
     depends_on:
       - eshop-message-broker
+      - cartservice-db
     ports:
       - "5136:8080"
       - "5137:8081"
@@ -48,7 +49,7 @@ services:
       - "27017:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_INITDB_ROOT_PASSWORD: 3f8nLnAez30z
     volumes:
       - cartservice-data:/data/db
  
@@ -62,15 +63,29 @@ services:
       ESHOP_MessageBrokerConfig__Port: 5672
       ESHOP_JwtTokenConfig__Authority: "http://eshop-identity-server:8080/realms/eshop-identity"
       ESHOP_JwtTokenConfig__Issuer: "eshop-client"
-      ESHOP_ConnectionStrings__DefaultConnection: Data source=CatalogDb.db
+      ESHOP_ConnectionStrings__DefaultConnection: Server=catalogservice-db,1433;Database=catalog-db;User Id=sa;Password=04PN849Q23Xh;Encrypt=False
     build:
       context: .
       dockerfile: CatalogService/CatalogService.Web/Dockerfile
+    depends_on:
+      - eshop-message-broker
+      - catalogservice-db
     ports:
       - "5164:8080"
       - "5165:8081"
 
+  catalogservice-db:
+    image: mcr.microsoft.com/mssql/server
+    environment:
+      SA_PASSWORD: "04PN849Q23Xh"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - calatalogservice-data:/var/opt/mssql
+
 volumes:
-  calatalog-service-data:
+  calatalogservice-data:
+    driver: local
   cartservice-data:
     driver: local

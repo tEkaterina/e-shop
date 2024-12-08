@@ -38,9 +38,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4495527C-551B-4B64-94D9-99A4A0DE53AE}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
-		Directory.Build.targets = Directory.Build.targets
-		Dependencies\identity-server\Dockerfile = Dependencies\identity-server\Dockerfile
-		Dependencies\identity-server\eshop-identity-realm.json = Dependencies\identity-server\eshop-identity-realm.json
 	EndProjectSection
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{8D7AAA10-12AB-4B9F-B1B4-EABFC0896865}"
