@@ -1,34 +1,29 @@
-﻿using CartService.DataAccess.LiteDb;
+﻿using CartService.DataAccess.Common.Db;
+using CartService.DataAccess.MongoDb;
 using CartService.DataAccess.Repository.Cart;
 using CartService.DataAccess.Repository.Product;
 
 using EShop.MessageBrokerClient;
-using EShop.MessageBrokerClient.Configuration;
 
-namespace CartService.DataAccess
+namespace CartService.DataAccess;
+
+public static class DependencyInjection
 {
-    public static class DependencyInjection
+    public static IServiceCollection AddDataAccessServices(this IServiceCollection services, IConfiguration config)
     {
-        public static IServiceCollection AddDataAccessServices(this IServiceCollection services, IConfiguration config, IWebHostEnvironment env)
-        {
-            var connectionString = config.GetConnectionString("DefaultConnection");
+        var connectionString = config.GetConnectionString("DefaultConnection");
+        DbConfig dbConfig = config.GetSection(DbConfigPath.Config).Get<DbConfig>()
+            ?? throw new ApplicationException("Failed to initialize database configuration.");
 
-            if (env.IsEnvironment("Test"))
-            {
-                services.AddSingleton<IDbInstance>(new InMemoryDbInstance(connectionString));
-            }
-            else
-            {
-                services.AddSingleton<IDbInstance>(new DbInstance(connectionString));
-            }
+        services.AddSingleton(dbConfig);
+        services.AddSingleton<IDbInstance>(new DbInstance(connectionString, dbConfig));
 
-            services.AddSingleton<IDbContext, DbContext>();
-            services.AddSingleton<ICartRepository, CartRepository>();
-            services.AddSingleton<IProductRepository, ProductRepository>();
+        services.AddSingleton<IDbContext, DbContext>();
+        services.AddSingleton<ICartRepository, CartRepository>();
+        services.AddSingleton<IProductRepository, ProductRepository>();
 
-            services.AddMessageBroker(config);
+        services.AddMessageBroker(config);
 
-            return services;
-        }
+        return services;
     }
 }

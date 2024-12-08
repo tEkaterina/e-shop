@@ -1,6 +1,4 @@
-﻿using LiteDB;
-
-namespace CartService.DataAccess.Common.Entities;
+﻿namespace CartService.DataAccess.Common.Entities;
 
 public record ProductEntity(int Id)
 {

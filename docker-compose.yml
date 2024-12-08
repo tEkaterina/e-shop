@@ -1,5 +1,5 @@
 services:
-  message-broker:
+  eshop-message-broker:
     image: rabbitmq:3-management
     environment:
       RABBITMQ_DEFAULT_USER: eshopuser
@@ -8,7 +8,7 @@ services:
       - "15672:15672"
       - "5672:5672"
 
-  identity-server:
+  eshop-identity-server:
     image: ${DOCKER_REGISTRY-}eshop-identity-server
     build:
       context: .
@@ -24,30 +24,43 @@ services:
     environment:
       ESHOP_MessageBrokerConfig__UserName: eshopuser
       ESHOP_MessageBrokerConfig__Password: sKxX8nYq97FX
-      ESHOP_MessageBrokerConfig__HostName: message-broker
+      ESHOP_MessageBrokerConfig__HostName: eshop-message-broker
       ESHOP_MessageBrokerConfig__VirtualHost: "/"
       ESHOP_MessageBrokerConfig__Port: 5672
-      ESHOP_JwtTokenConfig__Authority: "http://identity-server:8080/realms/eshop-identity"
+      ESHOP_JwtTokenConfig__Authority: "http://eshop-identity-server:8080/realms/eshop-identity"
       ESHOP_JwtTokenConfig__Issuer: "eshop-client"
-      ESHOP_ConnectionStrings__DefaultConnection: "Filename=eshop-cart.db;Connection=shared"
+      ESHOP_ConnectionStrings__DefaultConnection: "mongodb://admin:admin@cartservice-db:27017"
+      ESHOP_DataSourceConfig__DbName: eshop-cart
+      ESHOP_DataSourceConfig__CartCollectionName: carts
+      ESHOP_DataSourceConfig__ProductCollectionName: products
     build:
       context: .
       dockerfile: CartService/Dockerfile
     depends_on:
-      - message-broker
+      - eshop-message-broker
     ports:
       - "5136:8080"
       - "5137:8081"
+  
+  cartservice-db:
+    image: mongo
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+    volumes:
+      - cartservice-data:/data/db
  
   catalogservice.web:
     image: ${DOCKER_REGISTRY-}catalogserviceweb
     environment:
       ESHOP_MessageBrokerConfig__UserName: eshopuser
       ESHOP_MessageBrokerConfig__Password: sKxX8nYq97FX
-      ESHOP_MessageBrokerConfig__HostName: message-broker
+      ESHOP_MessageBrokerConfig__HostName: eshop-message-broker
       ESHOP_MessageBrokerConfig__VirtualHost: "/"
       ESHOP_MessageBrokerConfig__Port: 5672
-      ESHOP_JwtTokenConfig__Authority: "http://identity-server:8080/realms/eshop-identity"
+      ESHOP_JwtTokenConfig__Authority: "http://eshop-identity-server:8080/realms/eshop-identity"
       ESHOP_JwtTokenConfig__Issuer: "eshop-client"
       ESHOP_ConnectionStrings__DefaultConnection: Data source=CatalogDb.db
     build:
@@ -59,4 +72,5 @@ services:
 
 volumes:
   calatalog-service-data:
-  cart-service-data:
+  cartservice-data:
+    driver: local

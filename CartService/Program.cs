@@ -20,7 +20,7 @@ public class Program
         // Add services to the container.
 
         builder.Services.AddControllers();
-        builder.Services.AddDataAccessServices(builder.Configuration, builder.Environment);
+        builder.Services.AddDataAccessServices(builder.Configuration);
         builder.Services.AddApplicationServices(builder.Configuration);
 
         builder.Services.AddApiVersioning(options =>
