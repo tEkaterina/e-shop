@@ -4,9 +4,6 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: eshopuser
       RABBITMQ_DEFAULT_PASS: sKxX8nYq97FX
-    ports:
-      - "15672:15672"
-      - "5672:5672"
 
   eshop-identity-server:
     image: ${DOCKER_REGISTRY-}eshop-identity-server
@@ -16,8 +13,6 @@ services:
     environment:
       KC_BOOTSTRAP_ADMIN_USERNAME: admin
       KC_BOOTSTRAP_ADMIN_PASSWORD: admin
-    ports:
-      - "5177:8080"
 
   cartservice:
     image: ${DOCKER_REGISTRY-}cartservice
@@ -39,14 +34,9 @@ services:
     depends_on:
       - eshop-message-broker
       - cartservice-db
-    ports:
-      - "5136:8080"
-      - "5137:8081"
   
   cartservice-db:
     image: mongo
-    ports:
-      - "27017:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: 3f8nLnAez30z
@@ -70,19 +60,23 @@ services:
     depends_on:
       - eshop-message-broker
       - catalogservice-db
-    ports:
-      - "5164:8080"
-      - "5165:8081"
 
   catalogservice-db:
     image: mcr.microsoft.com/mssql/server
     environment:
       SA_PASSWORD: "04PN849Q23Xh"
       ACCEPT_EULA: "Y"
-    ports:
-      - "1433:1433"
     volumes:
       - calatalogservice-data:/var/opt/mssql
+
+  apigateway:
+    image: ${DOCKER_REGISTRY-}apigateway
+    build:
+      context: .
+      dockerfile: ApiGateway/Dockerfile
+    ports:
+      - "5000:8080"
+      - "5001:8081"
 
 volumes:
   calatalogservice-data:

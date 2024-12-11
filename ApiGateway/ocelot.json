@@ -1,0 +1,43 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "cartservice",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/carts/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
+    },
+    {
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catalogservice.web",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/catalog/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
+    },
+    {
+      "DownstreamPathTemplate": "/realms/eshop-identity/protocol/openid-connect/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "eshop-identity-server",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/auth/{everything}",
+      "UpstreamHttpMethod": [ "Post" ]
+    }
+  ],
+  "apigateway": {
+    "BaseUrl": "https://apigateway:8080"
+  }
+}
