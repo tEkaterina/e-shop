@@ -1,7 +1,7 @@
 {
   "Routes": [
     {
-      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamPathTemplate": "/api/carts/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -13,7 +13,7 @@
       "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
     },
     {
-      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamPathTemplate": "/api/products/{id}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -21,7 +21,45 @@
           "Port": 8080
         }
       ],
-      "UpstreamPathTemplate": "/catalog/{everything}",
+      "UpstreamPathTemplate": "/catalog/products/{id}",
+      "UpstreamHttpMethod": [ "GET" ],
+      "Key": "product-basics"
+    },
+    {
+      "DownstreamPathTemplate": "/api/products/{id}/details",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catalogservice.web",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/catalog/products/{id}/details",
+      "UpstreamHttpMethod": [ "GET" ],
+      "Key": "product-attributes"
+    },
+    {
+      "DownstreamPathTemplate": "/api/products/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catalogservice.web",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/catalog/products/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/categories/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catalogservice.web",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/catalog/categories/{everything}",
       "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
     },
     {
@@ -35,6 +73,13 @@
       ],
       "UpstreamPathTemplate": "/auth/{everything}",
       "UpstreamHttpMethod": [ "Post" ]
+    }
+  ],
+  "Aggregates": [
+    {
+      "UpstreamPathTemplate": "/catalog/detailed-products/{id}",
+      "RouteKeys": [ "product-basics", "product-attributes" ],
+      "Aggregator": "DetailedProductAggregator"
     }
   ],
   "apigateway": {

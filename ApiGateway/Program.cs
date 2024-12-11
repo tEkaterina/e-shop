@@ -1,12 +1,12 @@
-using Ocelot.DependencyInjection;
+using ApiGateway.Core;
 using Ocelot.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Configuration.AddJsonFile("ocelot.json");
-builder.Services.AddOcelot();
+builder.Configuration.AddGatewayConfig();
+builder.Services.AddGatewayServices();
 
 var app = builder.Build();
 

@@ -3,6 +3,7 @@ using CatalogService.Application.Products.Commands.CreateProduct;
 using CatalogService.Application.Products.Commands.DeleteProduct;
 using CatalogService.Application.Products.Commands.UpdateProduct;
 using CatalogService.Application.Products.Queries.Common.Dto;
+using CatalogService.Application.Products.Queries.GetProduct;
 using CatalogService.Application.Products.Queries.GetProducts;
 
 using MediatR;
@@ -24,6 +25,26 @@ namespace CatalogService.Web.Controllers
             )
         {
             return sender.Send(query);
+        }
+
+        [HttpGet("{id}")]
+        public Task<ProductDto> Get(
+            [FromServices] ISender sender,
+            [FromRoute] GetProductQuery query
+            )
+        {
+            return sender.Send(query);
+        }
+
+        [HttpGet("{id}/details")]
+        public IReadOnlyDictionary<string, string> GetDetails(int id)
+        {
+            return new Dictionary<string, string>
+           {
+               {"Accessed", DateTime.Now.ToString()},
+               {"Condition", "New"},
+               {"Producer", "Company 123 & Co"}
+           };
         }
 
         [HttpPost]
