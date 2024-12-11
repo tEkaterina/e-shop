@@ -13,6 +13,22 @@
       "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
     },
     {
+      "DownstreamPathTemplate": "/api/products",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catalogservice.web",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/catalog/products",
+      "UpstreamHttpMethod": [ "Get" ],
+      "FileCacheOptions": {
+        "TtlSeconds": 60,
+        "EnableContentHashing": false
+      }
+    },
+    {
       "DownstreamPathTemplate": "/api/products/{id}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -24,6 +40,18 @@
       "UpstreamPathTemplate": "/catalog/products/{id}",
       "UpstreamHttpMethod": [ "GET" ],
       "Key": "product-basics"
+    },
+    {
+      "DownstreamPathTemplate": "/api/products/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catalogservice.web",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/catalog/products/{id}",
+      "UpstreamHttpMethod": [ "Post", "Put", "Delete" ]
     },
     {
       "DownstreamPathTemplate": "/api/products/{id}/details",
@@ -39,7 +67,7 @@
       "Key": "product-attributes"
     },
     {
-      "DownstreamPathTemplate": "/api/products/{everything}",
+      "DownstreamPathTemplate": "/api/categories",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -47,11 +75,15 @@
           "Port": 8080
         }
       ],
-      "UpstreamPathTemplate": "/catalog/products/{everything}",
-      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
+      "UpstreamPathTemplate": "/catalog/categories",
+      "UpstreamHttpMethod": [ "Get" ],
+      "FileCacheOptions": {
+        "TtlSeconds": 60,
+        "EnableContentHashing": false
+      }
     },
     {
-      "DownstreamPathTemplate": "/api/categories/{everything}",
+      "DownstreamPathTemplate": "/api/categories/{id}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -59,7 +91,7 @@
           "Port": 8080
         }
       ],
-      "UpstreamPathTemplate": "/catalog/categories/{everything}",
+      "UpstreamPathTemplate": "/catalog/categories/{id}",
       "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
     },
     {
