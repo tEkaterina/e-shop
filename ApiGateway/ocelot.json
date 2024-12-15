@@ -1,7 +1,7 @@
 {
   "Routes": [
     {
-      "DownstreamPathTemplate": "/swagger",
+      "DownstreamPathTemplate": "/swagger/v2/swagger.json",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -9,8 +9,9 @@
           "Port": 8080
         }
       ],
-      "UpstreamPathTemplate": "/carts/swagger",
-      "UpstreamHttpMethod": [ "Get" ]
+      "UpstreamPathTemplate": "/carts/swagger.json",
+      "UpstreamHttpMethod": [ "Get" ],
+      "Key": "cart-swagger"
     },
     {
       "DownstreamPathTemplate": "/api/carts/{everything}",
@@ -23,6 +24,19 @@
       ],
       "UpstreamPathTemplate": "/carts/{everything}",
       "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
+    },
+    {
+      "DownstreamPathTemplate": "/swagger/v1/swagger.json",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catalogservice.web",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/catalog/swagger.json",
+      "UpstreamHttpMethod": [ "Get" ],
+      "Key": "catalog-swagger"
     },
     {
       "DownstreamPathTemplate": "/api/products",
@@ -148,6 +162,11 @@
       "UpstreamPathTemplate": "/catalog/detailed-products/{id}",
       "RouteKeys": [ "product-basics", "product-attributes" ],
       "Aggregator": "DetailedProductAggregator"
+    },
+    {
+      "UpstreamPathTemplate": "/swagger/v1/swagger.json",
+      "RouteKeys": [ "cart-swagger", "catalog-swagger" ],
+      "Aggregator": "SwaggerAggregator"
     }
   ],
   "apigateway": {

@@ -34,8 +34,6 @@ services:
     depends_on:
       - eshop-message-broker
       - cartservice-db
-    ports:
-      - "5010:8080"
   
   cartservice-db:
     image: mongo
@@ -62,8 +60,6 @@ services:
     depends_on:
       - eshop-message-broker
       - catalogservice-db
-    ports:
-      - "5020:8080"
 
   catalogservice-db:
     image: mcr.microsoft.com/mssql/server

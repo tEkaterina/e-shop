@@ -16,7 +16,7 @@ public static class OcelotConfigurator
 
     public static IConfigurationManager AddGatewayConfig(this IConfigurationManager configuration)
     {
-        configuration.AddJsonFile("ocelot.json");
+        configuration.AddJsonFile(OcelotConfiguration.ConfigName);
 
         return configuration;
     }

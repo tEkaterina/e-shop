@@ -20,10 +20,10 @@ public class DetailedProductAggregator : IDefinedAggregator
         var details = JsonSerializer.Deserialize<Dictionary<string, string>>(productDetailsContent) ?? throw new ApplicationException("Unable to parse product details.");
         product.Attributes = details;
 
-        var aggregatedResult = JsonSerializer.Serialize(product);
+        var serializedResult = JsonSerializer.Serialize(product);
 
         return new DownstreamResponse(
-            new StringContent(aggregatedResult),
+            new StringContent(serializedResult),
             HttpStatusCode.OK,
             responses.SelectMany(x => x.Headers).ToList(),
             "OK"

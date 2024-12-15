@@ -6,7 +6,9 @@ public static class AggregatorBuilder
 {
     public static IOcelotBuilder AddAggregators(this IOcelotBuilder ocelotBuilder)
     {
-        ocelotBuilder.AddTransientDefinedAggregator<DetailedProductAggregator>();
+        ocelotBuilder
+            .AddTransientDefinedAggregator<DetailedProductAggregator>()
+            .AddTransientDefinedAggregator<SwaggerAggregator>();
 
         return ocelotBuilder;
     }
