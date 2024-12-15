@@ -20,7 +20,7 @@ public static class DependencyInjection
 
         services.AddDbContext<ApplicationDbContext>(options =>
         {
-            options.UseSqlite(connectionString);
+            options.UseSqlServer(connectionString);
         });
 
         services.AddScoped<IApplicationDbContext>(options => options.GetRequiredService<ApplicationDbContext>());
