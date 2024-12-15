@@ -34,6 +34,8 @@ services:
     depends_on:
       - eshop-message-broker
       - cartservice-db
+    ports:
+      - "5010:8080"
   
   cartservice-db:
     image: mongo
@@ -60,6 +62,8 @@ services:
     depends_on:
       - eshop-message-broker
       - catalogservice-db
+    ports:
+      - "5020:8080"
 
   catalogservice-db:
     image: mcr.microsoft.com/mssql/server
@@ -74,6 +78,9 @@ services:
     build:
       context: .
       dockerfile: ApiGateway/Dockerfile
+    environment:
+      ESHOP_JwtTokenConfig__Authority: "http://eshop-identity-server:8080/realms/eshop-identity"
+      ESHOP_JwtTokenConfig__Issuer: "eshop-client"
     ports:
       - "5000:8080"
       - "5001:8081"

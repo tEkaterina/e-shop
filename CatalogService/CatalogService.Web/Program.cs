@@ -21,6 +21,9 @@ public class Program
         builder.Services.AddControllers();
         builder.Services.AddAuthorizationServices(builder.Configuration);
 
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen();
+
         var app = builder.Build();
 
         // Initialize
@@ -39,6 +42,9 @@ public class Program
             var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
             await dbInitializer.InitializeAsync().ConfigureAwait(false);
         }
+
+        app.UseSwagger();
+        app.UseSwaggerUI();
 
         app.Run();
     }

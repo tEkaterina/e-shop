@@ -1,6 +1,18 @@
 {
   "Routes": [
     {
+      "DownstreamPathTemplate": "/swagger",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "cartservice",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/carts/swagger",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
       "DownstreamPathTemplate": "/api/carts/{everything}",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
@@ -51,7 +63,13 @@
         }
       ],
       "UpstreamPathTemplate": "/catalog/products/{id}",
-      "UpstreamHttpMethod": [ "Post", "Put", "Delete" ]
+      "UpstreamHttpMethod": [ "Post", "Put", "Delete" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      },
+      "RouteClaimsRequirement": {
+        "role": "eshop_manager"
+      }
     },
     {
       "DownstreamPathTemplate": "/api/products/{id}/details",
@@ -92,7 +110,25 @@
         }
       ],
       "UpstreamPathTemplate": "/catalog/categories/{id}",
-      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/categories/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catalogservice.web",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/catalog/categories/{id}",
+      "UpstreamHttpMethod": [ "Post", "Put", "Delete" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      },
+      "RouteClaimsRequirement": {
+        "role": "eshop_manager"
+      }
     },
     {
       "DownstreamPathTemplate": "/realms/eshop-identity/protocol/openid-connect/{everything}",
