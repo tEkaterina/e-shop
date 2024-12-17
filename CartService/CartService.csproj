@@ -12,6 +12,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DataAccess\Repository\Common\**" />
+    <Content Remove="DataAccess\Repository\Common\**" />
+    <EmbeddedResource Remove="DataAccess\Repository\Common\**" />
+    <None Remove="DataAccess\Repository\Common\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Ardalis.GuardClauses" Version="5.0.0" />
     <PackageReference Include="FluentValidation" Version="11.10.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.11" />
@@ -24,10 +31,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EShop.MessageBrokerClient\EShop.MessageBrokerClient.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="DataAccess\Repository\Common\" />
   </ItemGroup>
 
 </Project>

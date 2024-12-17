@@ -4,6 +4,8 @@ namespace CartService.WebApi;
 
 public static class OpenApiExtension
 {
+    private const string ServiceName = "CartService";
+
     public static void AddOpenApiGeneration(this IServiceCollection services)
     {
         services.AddVersionedApiExplorer(options =>
@@ -19,6 +21,7 @@ public static class OpenApiExtension
         {
             services.AddOpenApiDocument(options =>
             {
+                options.Title = ServiceName;
                 options.DocumentName = "v" + version.Major;
                 options.ApiGroupNames = ["v" + version.Major];
                 options.Version = version.Major + "." + version.Minor;

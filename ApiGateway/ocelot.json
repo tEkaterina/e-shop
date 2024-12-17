@@ -1,0 +1,175 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/swagger/v2/swagger.json",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "cartservice",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/carts/swagger.json",
+      "UpstreamHttpMethod": [ "Get" ],
+      "Key": "cart-swagger"
+    },
+    {
+      "DownstreamPathTemplate": "/api/carts/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "cartservice",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/carts/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
+    },
+    {
+      "DownstreamPathTemplate": "/swagger/v1/swagger.json",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catalogservice.web",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/catalog/swagger.json",
+      "UpstreamHttpMethod": [ "Get" ],
+      "Key": "catalog-swagger"
+    },
+    {
+      "DownstreamPathTemplate": "/api/products",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catalogservice.web",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/catalog/products",
+      "UpstreamHttpMethod": [ "Get" ],
+      "FileCacheOptions": {
+        "TtlSeconds": 60,
+        "EnableContentHashing": false
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/products/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catalogservice.web",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/catalog/products/{id}",
+      "UpstreamHttpMethod": [ "GET" ],
+      "Key": "product-basics"
+    },
+    {
+      "DownstreamPathTemplate": "/api/products/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catalogservice.web",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/catalog/products/{id}",
+      "UpstreamHttpMethod": [ "Post", "Put", "Delete" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      },
+      "RouteClaimsRequirement": {
+        "role": "eshop_manager"
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/products/{id}/details",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catalogservice.web",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/catalog/products/{id}/details",
+      "UpstreamHttpMethod": [ "GET" ],
+      "Key": "product-attributes"
+    },
+    {
+      "DownstreamPathTemplate": "/api/categories",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catalogservice.web",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/catalog/categories",
+      "UpstreamHttpMethod": [ "Get" ],
+      "FileCacheOptions": {
+        "TtlSeconds": 60,
+        "EnableContentHashing": false
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/categories/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catalogservice.web",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/catalog/categories/{id}",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/categories/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catalogservice.web",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/catalog/categories/{id}",
+      "UpstreamHttpMethod": [ "Post", "Put", "Delete" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      },
+      "RouteClaimsRequirement": {
+        "role": "eshop_manager"
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/realms/eshop-identity/protocol/openid-connect/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "eshop-identity-server",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/auth/{everything}",
+      "UpstreamHttpMethod": [ "Post" ]
+    }
+  ],
+  "Aggregates": [
+    {
+      "UpstreamPathTemplate": "/catalog/detailed-products/{id}",
+      "RouteKeys": [ "product-basics", "product-attributes" ],
+      "Aggregator": "DetailedProductAggregator"
+    },
+    {
+      "UpstreamPathTemplate": "/swagger/v1/swagger.json",
+      "RouteKeys": [ "cart-swagger", "catalog-swagger" ],
+      "Aggregator": "SwaggerAggregator"
+    }
+  ],
+  "apigateway": {
+    "BaseUrl": "https://apigateway:8080"
+  }
+}
